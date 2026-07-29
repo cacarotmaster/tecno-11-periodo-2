@@ -3,541 +3,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tecnología 11° | Período 2 | IER Rafael Uribe Uribe</title>
+<title>Tecnología 11° | Períodos 2 y 3 | IER Rafael Uribe Uribe</title>
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #13131f;
-    --surface2: #1a1a2e;
-    --primary: #00f0ff;
-    --secondary: #bd00ff;
-    --accent: #ff2d95;
-    --green: #00ff88;
-    --yellow: #ffd700;
-    --text: #e0e0f0;
-    --text2: #8888aa;
-    --radius: 16px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bg:#0a0a0f; --surface:#13131f; --surface2:#1a1a2e;
+    --primary:#00f0ff; --secondary:#bd00ff; --accent:#ff2d95;
+    --green:#00ff88; --yellow:#ffd700; --text:#e0e0f0; --text2:#8888aa;
+    --radius:16px; --transition:0.3s cubic-bezier(0.4,0,0.2,1);
   }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--bg); color: var(--text);
-    line-height: 1.6; overflow-x: hidden;
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+  #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:0 2rem;}
+  nav .inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  nav .logo h1{font-size:1.2rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;}
+  nav .links,.nav-tabs{display:flex;gap:1rem;list-style:none;}
+  nav .links a,.tab-btn{color:var(--text2);text-decoration:none;font-size:0.9rem;font-weight:500;transition:var(--transition);background:none;border:none;cursor:pointer;padding:0.4rem 0.8rem;border-radius:8px;}
+  nav .links a:hover,.tab-btn:hover{color:var(--primary);}
+  .tab-btn.active{background:rgba(0,240,255,0.15);color:var(--primary);font-weight:700;}
+  .menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;}
+  .hero{position:relative;z-index:1;padding:5rem 2rem 3rem;text-align:center;max-width:900px;margin:0 auto;}
+  .hero .badge{display:inline-block;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);color:var(--primary);padding:0.4rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;margin-bottom:1.5rem;}
+  .hero h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1.5rem;}
+  .hero h2 .gradient{background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero .question{background:var(--surface);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:1.5rem 2rem;margin:1.5rem 0;font-size:1.1rem;font-style:italic;color:var(--yellow);}
+  .hero .meta{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+  .hero .meta span{background:var(--surface2);padding:0.5rem 1.2rem;border-radius:50px;font-size:0.85rem;color:var(--text2);}
+  .hero .meta span b{color:var(--primary);}
+  section{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:3rem 2rem;}
+  section h2{font-size:1.8rem;font-weight:800;margin-bottom:1.5rem;}
+  .timeline{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));}
+  .week-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:1.3rem;transition:var(--transition);cursor:pointer;}
+  .week-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 6px 24px rgba(0,240,255,0.08);}
+  .week-card .num{font-size:0.7rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.4rem;}
+  .week-card h3{font-size:1rem;margin-bottom:0.3rem;}
+  .week-card .indicator{font-size:0.78rem;color:var(--text2);margin-bottom:0.4rem;}
+  .week-card .activities{font-size:0.8rem;color:var(--text2);overflow:hidden;}
+  .week-card .tag{display:inline-block;background:rgba(189,0,255,0.15);color:var(--secondary);padding:0.15rem 0.6rem;border-radius:50px;font-size:0.7rem;margin-top:0.6rem;}
+  .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;}
+  .modal-overlay.active{display:flex;}
+  .modal{background:var(--surface);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:1.8rem;max-width:700px;width:92%;max-height:85vh;overflow-y:auto;animation:modalIn 0.3s ease;}
+  .modal h3{font-size:1.3rem;margin-bottom:0.4rem;}
+  .modal .close{float:right;background:none;border:none;color:var(--text2);font-size:1.5rem;cursor:pointer;}
+  .modal .close:hover{color:var(--accent);}
+  .modal .lectura{background:var(--surface2);border-left:3px solid var(--primary);padding:0.9rem 1.1rem;margin:0.8rem 0;border-radius:0 var(--radius) var(--radius) 0;font-size:0.82rem;}
+  .modal .lectura h4{color:var(--primary);margin-bottom:0.4rem;font-size:0.9rem;}
+  .modal .lectura .cita{color:var(--yellow);font-style:italic;margin:0.25rem 0;font-size:0.78rem;}
+  .modal .lectura .ref{color:var(--text2);font-size:0.7rem;margin-top:0.4rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:0.4rem;}
+  .rubrica{margin:0.8rem 0;}
+  .rubrica h4{color:var(--green);margin-bottom:0.4rem;font-size:0.9rem;}
+  .rubrica table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+  .rubrica th{background:var(--surface2);color:var(--primary);padding:0.4rem 0.5rem;text-align:left;font-size:0.7rem;}
+  .rubrica td{padding:0.4rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:top;font-size:0.73rem;}
+  .rubrica .sup{color:var(--primary);font-weight:700;}
+  .rubrica .alt{color:var(--green);font-weight:600;}
+  .rubrica .bas{color:var(--yellow);font-weight:600;}
+  .rubrica .baj{color:var(--accent);font-weight:600;}
+  .modal ul,.modal ol{padding-left:1.2rem;margin:0.6rem 0;}
+  .modal ul li,.modal ol li{margin-bottom:0.3rem;color:var(--text2);font-size:0.85rem;}
+  .indicators-grid{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));}
+  .ind-group{background:var(--surface);border-radius:var(--radius);padding:1.3rem;}
+  .ind-group h4{font-size:1rem;margin-bottom:0.6rem;}
+  .ind-group ul{list-style:none;padding:0;}
+  .ind-group ul li{padding:0.35rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.85rem;color:var(--text2);}
+  .ind-group ul li::before{content:'▸ ';color:var(--primary);}
+  .links-grid{display:grid;gap:0.6rem;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+  .link-btn{display:flex;align-items:center;gap:0.4rem;background:var(--surface2);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.6rem 0.9rem;color:var(--text);text-decoration:none;font-size:0.8rem;transition:var(--transition);}
+  .link-btn:hover{border-color:var(--primary);background:rgba(0,240,255,0.08);transform:translateY(-1px);}
+  .comp-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:1.3rem;transition:var(--transition);}
+  .comp-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .comp-card .comp-icon{font-size:1.8rem;margin-bottom:0.6rem;}
+  .comp-card h4{font-size:0.95rem;margin-bottom:0.4rem;}
+  .comp-card p{font-size:0.8rem;color:var(--text2);}
+  footer{position:relative;z-index:1;text-align:center;padding:2.5rem 2rem;border-top:1px solid rgba(255,255,255,0.06);color:var(--text2);font-size:0.8rem;}
+  footer a{color:var(--primary);text-decoration:none;}
+  .period-content{display:none;}
+  .period-content.active{display:block;}
+  @keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  @media (max-width:768px){
+    nav .links{display:none;}
+    nav .links.open{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--surface);padding:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+    .menu-btn{display:block;}
+    .nav-tabs{flex-wrap:wrap;}
+    .timeline{grid-template-columns:1fr;}
+    .indicators-grid{grid-template-columns:1fr;}
+    .links-grid{grid-template-columns:repeat(2,1fr);}
   }
-  #particles {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    pointer-events: none; z-index:0;
-  }
-  nav {
-    position: sticky; top:0; z-index:100;
-    background: rgba(10,10,15,0.85); backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 2rem;
-  }
-  nav .inner {
-    max-width: 1300px; margin:0 auto;
-    display:flex; align-items:center; justify-content:space-between; height: 64px;
-  }
-  nav .logo h1 {
-    font-size: 1.2rem; font-weight:800;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
-  }
-  nav .links { display:flex; gap:1.5rem; list-style:none; }
-  nav .links a { color: var(--text2); text-decoration:none; font-size:0.9rem; font-weight:500; transition:var(--transition); }
-  nav .links a:hover { color:var(--primary); }
-  .menu-btn { display:none; background:none; border:none; color:var(--text); font-size:1.5rem; cursor:pointer; }
-  .hero {
-    position:relative; z-index:1; padding:6rem 2rem 4rem;
-    text-align:center; max-width:900px; margin:0 auto;
-  }
-  .hero .badge {
-    display:inline-block; background:rgba(0,240,255,0.1);
-    border:1px solid rgba(0,240,255,0.3); color:var(--primary);
-    padding:0.4rem 1.2rem; border-radius:50px; font-size:0.85rem;
-    font-weight:600; margin-bottom:1.5rem; animation:fadeInUp 0.8s ease;
-  }
-  .hero h2 { font-size:clamp(2rem,5vw,3.5rem); font-weight:900; line-height:1.15; margin-bottom:1.5rem; animation:fadeInUp 0.8s ease 0.1s both; }
-  .hero h2 .gradient { background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .hero .question { background:var(--surface); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); padding:1.5rem 2rem; margin:2rem 0; font-size:1.15rem; font-style:italic; color:var(--yellow); animation:fadeInUp 0.8s ease 0.2s both; }
-  .hero .meta { display:flex; gap:2rem; justify-content:center; flex-wrap:wrap; animation:fadeInUp 0.8s ease 0.3s both; }
-  .hero .meta span { background:var(--surface2); padding:0.5rem 1.2rem; border-radius:50px; font-size:0.9rem; color:var(--text2); }
-  .hero .meta span b { color:var(--primary); }
-  section { position:relative; z-index:1; max-width:1300px; margin:0 auto; padding:4rem 2rem; }
-  section h2 { font-size:2rem; font-weight:800; margin-bottom:2rem; }
-  section h2 .icon { font-size:1.8rem; }
-  .timeline { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); }
-  .week-card {
-    background:var(--surface); border:1px solid rgba(255,255,255,0.06);
-    border-radius:var(--radius); padding:1.5rem; transition:var(--transition);
-    cursor:pointer; position:relative;
-  }
-  .week-card:hover { transform:translateY(-4px); border-color:var(--primary); box-shadow:0 8px 32px rgba(0,240,255,0.1); }
-  .week-card .num { font-size:0.75rem; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:2px; margin-bottom:0.5rem; }
-  .week-card h3 { font-size:1.1rem; margin-bottom:0.4rem; }
-  .week-card .indicator { font-size:0.82rem; color:var(--text2); margin-bottom:0.5rem; }
-  .week-card .activities { font-size:0.85rem; color:var(--text2); overflow:hidden; }
-  .week-card .tag {
-    display:inline-block; background:rgba(189,0,255,0.15);
-    color:var(--secondary); padding:0.2rem 0.7rem; border-radius:50px;
-    font-size:0.75rem; margin-top:0.75rem;
-  }
-  .modal-overlay {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
-    z-index:200; align-items:center; justify-content:center;
-  }
-  .modal-overlay.active { display:flex; }
-  .modal {
-    background:var(--surface); border:1px solid rgba(255,255,255,0.1);
-    border-radius:var(--radius); padding:2rem; max-width:700px; width:92%;
-    max-height:85vh; overflow-y:auto; animation:modalIn 0.3s ease;
-  }
-  .modal h3 { font-size:1.4rem; margin-bottom:0.5rem; }
-  .modal .close { float:right; background:none; border:none; color:var(--text2); font-size:1.5rem; cursor:pointer; transition:var(--transition); }
-  .modal .close:hover { color:var(--accent); }
-  .modal .lectura { background:var(--surface2); border-left:3px solid var(--primary); padding:1rem 1.2rem; margin:1rem 0; border-radius:0 var(--radius) var(--radius) 0; font-size:0.85rem; }
-  .modal .lectura h4 { color:var(--primary); margin-bottom:0.5rem; font-size:0.95rem; }
-  .modal .lectura .cita { color:var(--yellow); font-style:italic; margin:0.3rem 0; font-size:0.8rem; }
-  .modal .lectura .ref { color:var(--text2); font-size:0.72rem; margin-top:0.5rem; border-top:1px solid rgba(255,255,255,0.06); padding-top:0.5rem; }
-  .rubrica { margin:1rem 0; }
-  .rubrica h4 { color:var(--green); margin-bottom:0.5rem; }
-  .rubrica table { width:100%; border-collapse:collapse; font-size:0.8rem; }
-  .rubrica th { background:var(--surface2); color:var(--primary); padding:0.5rem 0.7rem; text-align:left; font-size:0.75rem; }
-  .rubrica td { padding:0.5rem 0.7rem; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; }
-  .rubrica .sup { color:var(--primary); font-weight:700; }
-  .rubrica .alt { color:var(--green); font-weight:600; }
-  .rubrica .bas { color:var(--yellow); font-weight:600; }
-  .rubrica .baj { color:var(--accent); font-weight:600; }
-  .modal ul, .modal ol { padding-left:1.2rem; margin:0.8rem 0; }
-  .modal ul li, .modal ol li { margin-bottom:0.4rem; color:var(--text2); font-size:0.9rem; }
-  .comp-card {
-    background:var(--surface); border:1px solid rgba(255,255,255,0.06);
-    border-radius:var(--radius); padding:1.5rem; transition:var(--transition);
-  }
-  .comp-card:hover { border-color:var(--accent); transform:translateY(-2px); }
-  .comp-card .comp-icon { font-size:2rem; margin-bottom:0.75rem; }
-  .comp-card h4 { font-size:1rem; margin-bottom:0.5rem; }
-  .comp-card p { font-size:0.85rem; color:var(--text2); }
-  .links-grid { display:grid; gap:0.8rem; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); }
-  .link-btn {
-    display:flex; align-items:center; gap:0.5rem;
-    background:var(--surface2); border:1px solid rgba(255,255,255,0.06);
-    border-radius:10px; padding:0.7rem 1rem; color:var(--text);
-    text-decoration:none; font-size:0.85rem; transition:var(--transition);
-  }
-  .link-btn:hover { border-color:var(--primary); background:rgba(0,240,255,0.08); transform:translateY(-1px); }
-  .link-btn .emoji { font-size:1.2rem; }
-  footer {
-    position:relative; z-index:1; text-align:center; padding:3rem 2rem;
-    border-top:1px solid rgba(255,255,255,0.06); color:var(--text2); font-size:0.85rem;
-  }
-  footer a { color:var(--primary); text-decoration:none; }
-  .indicators-grid { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); }
-  .ind-group { background:var(--surface); border-radius:var(--radius); padding:1.5rem; }
-  .ind-group h4 { font-size:1.1rem; margin-bottom:0.8rem; display:flex; align-items:center; gap:0.5rem; }
-  .ind-group ul { list-style:none; padding:0; }
-  .ind-group ul li { padding:0.4rem 0; border-bottom:1px solid rgba(255,255,255,0.04); font-size:0.9rem; color:var(--text2); }
-  .ind-group ul li::before { content:'▸ '; color:var(--primary); }
-  @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes modalIn { from { opacity:0; transform:scale(0.95) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
-  @media (max-width:768px) {
-    nav .links { display:none; }
-    nav .links.open { display:flex; flex-direction:column; position:absolute; top:64px; left:0; right:0; background:var(--surface); padding:1.5rem; border-bottom:1px solid rgba(255,255,255,0.06); }
-    .menu-btn { display:block; }
-    .hero { padding:3rem 1rem 2rem; }
-    .timeline { grid-template-columns:1fr; }
-    .indicators-grid { grid-template-columns:1fr; }
-    .links-grid { grid-template-columns:repeat(2,1fr); }
-  }
-  ::-webkit-scrollbar { width:6px; }
-  ::-webkit-scrollbar-track { background:var(--bg); }
-  ::-webkit-scrollbar-thumb { background:var(--surface2); border-radius:3px; }
+  ::-webkit-scrollbar{width:5px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px;}
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
 <nav>
   <div class="inner">
-    <div class="logo"><h1>⚡ Tecno11° · Período 2</h1></div>
+    <div class="logo"><h1>⚡ Tecno 11°</h1></div>
     <button class="menu-btn" onclick="document.querySelector('nav .links').classList.toggle('open')">☰</button>
+    <ul class="nav-tabs">
+      <li><button class="tab-btn active" onclick="switchPeriod('p2')">Período 2</button></li>
+      <li><button class="tab-btn" onclick="switchPeriod('p3')">Período 3</button></li>
+    </ul>
     <ul class="links">
-      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#hero">Inicio</a></li>
       <li><a href="#indicadores">Indicadores</a></li>
       <li><a href="#semanas">Semanas</a></li>
       <li><a href="#herramientas">Herramientas</a></li>
-      <li><a href="#recursos">Recursos</a></li>
     </ul>
   </div>
 </nav>
 
-<header class="hero" id="inicio">
+<!-- ===== PERÍODO 2 ===== -->
+<div class="period-content active" id="content-p2">
+<header class="hero" id="hero">
   <div class="badge">📡 PERÍODO 2 · 2026</div>
   <h2>Diseña el futuro con<br><span class="gradient">ética, ergonomía y sostenibilidad</span></h2>
-  <div class="question">💡 "¿Cómo podemos diseñar soluciones tecnológicas éticas, ergonómicas y sostenibles que respondan a problemas reales de nuestra comunidad, considerando su impacto social y ambiental?"</div>
-  <div class="meta">
-    <span>📅 <b>13 Semanas</b></span>
-    <span>🕐 <b>2h / semana</b></span>
-    <span>💻 <b>Sala de Sistemas</b></span>
-    <span>🧑‍💻 <b>Individual</b></span>
-    <span>🎓 <b>Grado 11°</b></span>
-  </div>
+  <div class="question">💡 "¿Cómo podemos diseñar soluciones tecnológicas éticas, ergonómicas y sostenibles que respondan a problemas reales de nuestra comunidad?"</div>
+  <div class="meta"><span>📅 <b>13 Semanas</b></span><span>🕐 <b>2h / semana</b></span><span>💻 <b>Sala de Sistemas</b></span><span>🧑‍💻 <b>Individual</b></span><span>🎓 <b>Grado 11°</b></span></div>
 </header>
+<section id="indicadores"><div id="indicadores-p2"></div></section>
+<section id="semanas"><div class="timeline" id="timeline-p2"></div></section>
+</div>
 
-<section id="indicadores">
-  <h2><span class="icon">📋</span> Indicadores de Desempeño</h2>
-  <div class="indicators-grid">
-    <div class="ind-group">
-      <h4>🧠 SABER</h4>
-      <ul>
-        <li>Reconozco la incidencia del conocimiento tecnológico para el desarrollo de futuros sistemas.</li>
-        <li>Planifico y diseño prototipos para representar realidades tecnológicas.</li>
-        <li>Aplico la antropometría, ergonomía y aspectos económicos para solución de problemas en diferentes contextos.</li>
-        <li>Debato los impactos positivos y negativos de la tecnología en las personas, especialmente los jóvenes.</li>
-      </ul>
-    </div>
-    <div class="ind-group">
-      <h4>🔧 HACER</h4>
-      <ul>
-        <li>Sustento mis propuestas de desarrollo tecnológico e informático mediante saberes de base tecnológica.</li>
-        <li>Diseño, construyo y pruebo prototipos de tecnología para dar respuesta a un problema planteado.</li>
-        <li>Propongo, analizo y comparo las diferentes soluciones para solucionar un problema en un contexto.</li>
-        <li>Construyo críticamente protocolos de seguridad y usos éticos para proteger información y redes.</li>
-      </ul>
-    </div>
-    <div class="ind-group">
-      <h4>💜 SER</h4>
-      <ul>
-        <li>Demuestro interés y participo de discusiones sobre el origen y evolución de la tecnología, para mejorar calidad de vida.</li>
-        <li>Valoro el uso de la tecnología para brindar soluciones múltiples en diferentes contextos.</li>
-        <li>Demuestro conocimiento al aplicar soluciones en contextos para diferentes problemas.</li>
-        <li>Tomo decisiones éticas relacionadas con implicaciones éticas de la tecnología para brindar soluciones.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+<!-- ===== PERÍODO 3 ===== -->
+<div class="period-content" id="content-p3">
+<header class="hero" id="hero-p3">
+  <div class="badge">📡 PERÍODO 3 · 2026</div>
+  <h2>Diseña, comunica y debate<br><span class="gradient">soluciones tecnológicas para tu comunidad</span></h2>
+  <div class="question">💡 "¿Cómo puedo diseñar, representar y comunicar soluciones tecnológicas innovadoras, considerando especificaciones técnicas, restricciones éticas y la relación costo-beneficio para mi comunidad?"</div>
+  <div class="meta"><span>📅 <b>13 Semanas</b></span><span>🕐 <b>2h / semana</b></span><span>💻 <b>Sala de Sistemas</b></span><span>🧑‍💻 <b>Individual</b></span><span>🎓 <b>Grado 11°</b></span></div>
+</header>
+<section id="indicadores-p3-s"><div id="indicadores-p3"></div></section>
+<section id="semanas-p3-s"><div class="timeline" id="timeline-p3"></div></section>
+</div>
 
-<section id="semanas">
-  <h2><span class="icon">📆</span> Unidad Didáctica — 13 Semanas</h2>
-  <div class="timeline" id="timeline"></div>
-</section>
-
+<!-- HERRAMIENTAS (compartido) -->
 <section id="herramientas">
-  <h2><span class="icon">🛠️</span> Herramientas Digitales</h2>
-  <h3 style="color:var(--text2);margin-bottom:1rem;font-size:0.9rem;">Plataformas de creación</h3>
+  <h2>🛠️ Herramientas Digitales</h2>
+  <p style="color:var(--text2);margin-bottom:1rem;font-size:0.85rem;">Plataformas de creación</p>
   <div class="links-grid" style="margin-bottom:2rem;">
-    <a href="https://canva.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🎨</span> Canva</a>
-    <a href="https://miro.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">📋</span> Miro</a>
-    <a href="https://gamma.app" target="_blank" rel="noopener" class="link-btn"><span class="emoji">📊</span> Gamma</a>
-    <a href="https://genial.ly" target="_blank" rel="noopener" class="link-btn"><span class="emoji">✨</span> Genially</a>
-    <a href="https://padlet.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">📌</span> Padlet</a>
-    <a href="https://figma.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🖌️</span> Figma</a>
-    <a href="https://tinkercad.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🧊</span> Tinkercad</a>
-    <a href="https://kahoot.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🎮</span> Kahoot</a>
-    <a href="https://draw.io" target="_blank" rel="noopener" class="link-btn"><span class="emoji">📐</span> Draw.io</a>
-    <a href="https://excalidraw.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">✏️</span> Excalidraw</a>
+    <a href="https://canva.com" target="_blank" rel="noopener" class="link-btn">🎨 Canva</a>
+    <a href="https://miro.com" target="_blank" rel="noopener" class="link-btn">📋 Miro</a>
+    <a href="https://gamma.app" target="_blank" rel="noopener" class="link-btn">📊 Gamma</a>
+    <a href="https://genial.ly" target="_blank" rel="noopener" class="link-btn">✨ Genially</a>
+    <a href="https://padlet.com" target="_blank" rel="noopener" class="link-btn">📌 Padlet</a>
+    <a href="https://figma.com" target="_blank" rel="noopener" class="link-btn">🖌️ Figma</a>
+    <a href="https://tinkercad.com" target="_blank" rel="noopener" class="link-btn">🧊 Tinkercad</a>
+    <a href="https://kahoot.com" target="_blank" rel="noopener" class="link-btn">🎮 Kahoot</a>
+    <a href="https://draw.io" target="_blank" rel="noopener" class="link-btn">📐 Draw.io</a>
+    <a href="https://excalidraw.com" target="_blank" rel="noopener" class="link-btn">✏️ Excalidraw</a>
+    <a href="https://capcut.com" target="_blank" rel="noopener" class="link-btn">🎬 CapCut</a>
   </div>
-  <h3 style="color:var(--text2);margin-bottom:1rem;font-size:0.9rem;">🤖 Boots de IA</h3>
+  <p style="color:var(--text2);margin-bottom:1rem;font-size:0.85rem;">🤖 Boots de IA</p>
   <div class="links-grid">
-    <a href="https://arenaai.ai" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🏟️</span> ArenaAI</a>
-    <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🐋</span> DeepSeek</a>
-    <a href="https://chat.qwenlm.ai" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🧞</span> Qwen</a>
-    <a href="https://kimi.moonshot.cn" target="_blank" rel="noopener" class="link-btn"><span class="emoji">🌙</span> Kimi</a>
-    <a href="https://lovable.dev" target="_blank" rel="noopener" class="link-btn"><span class="emoji">💖</span> Lovable</a>
+    <a href="https://arenaai.ai" target="_blank" rel="noopener" class="link-btn">🏟️ ArenaAI</a>
+    <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="link-btn">🐋 DeepSeek</a>
+    <a href="https://chat.qwenlm.ai" target="_blank" rel="noopener" class="link-btn">🧞 Qwen</a>
+    <a href="https://kimi.moonshot.cn" target="_blank" rel="noopener" class="link-btn">🌙 Kimi</a>
+    <a href="https://lovable.dev" target="_blank" rel="noopener" class="link-btn">💖 Lovable</a>
   </div>
 </section>
 
 <section id="recursos">
-  <h2><span class="icon">📚</span> Recursos del Curso</h2>
-  <div style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));">
-    <a href="https://classroom.google.com/w/ODY5MDc3Njk0MjA0/t/all" target="_blank" style="text-decoration:none;">
-      <div class="comp-card"><div class="comp-icon">🏫</div><h4>Google Classroom</h4><p>Tareas, materiales y anuncios del curso.</p></div>
-    </a>
-    <a href="https://docs.google.com/spreadsheets/d/1ZYgw6WognnC5cPQsQ39eqmIzVLbbb8mIhydvnLu2vKY/edit" target="_blank" style="text-decoration:none;">
-      <div class="comp-card"><div class="comp-icon">📊</div><h4>Unidad Didáctica</h4><p>Google Sheets con las 13 semanas detalladas.</p></div>
-    </a>
+  <h2>📚 Recursos del Curso</h2>
+  <div style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+    <a href="https://classroom.google.com/w/ODY5MDc3Njk0MjA0/t/all" target="_blank" style="text-decoration:none;"><div class="comp-card"><div class="comp-icon">🏫</div><h4>Google Classroom</h4><p>Tareas, materiales y anuncios de ambos períodos.</p></div></a>
+    <a href="https://docs.google.com/spreadsheets/d/1ZYgw6WognnC5cPQsQ39eqmIzVLbbb8mIhydvnLu2vKY/edit" target="_blank" style="text-decoration:none;"><div class="comp-card"><div class="comp-icon">📊</div><h4>Unidad Didáctica</h4><p>Google Sheets con Períodos 2 y 3 detallados.</p></div></a>
     <div class="comp-card"><div class="comp-icon">📖</div><h4>Enfoque Pedagógico</h4><p>Constructivista-Humanista · Aprendizaje significativo · Reflexión crítica</p></div>
     <div class="comp-card"><div class="comp-icon">🏆</div><h4>Evaluación</h4><p>Rúbricas SABER-HACER-SER con niveles Superior, Alto, Básico y Bajo en cada semana.</p></div>
   </div>
 </section>
 
 <div class="modal-overlay" id="modal"><div class="modal" id="modal-content"></div></div>
-
 <footer>
-  <p>🏫 <b>IER Rafael Uribe Uribe</b> — Tecnología e Informática 11° — Período 2, 2026</p>
-  <p style="margin-top:0.3rem;">Docente: Carlos Andrés Caro Taborda · <a href="https://github.com/cacarotmaster">@cacarotmaster</a></p>
-  <p style="margin-top:0.3rem;opacity:0.6;">Constructivista-Humanista ✨</p>
+  <p>🏫 <b>IER Rafael Uribe Uribe</b> — Tecnología e Informática 11° — Períodos 2 y 3, 2026</p>
+  <p style="margin-top:0.2rem;">Docente: Carlos Andrés Caro Taborda · <a href="https://github.com/cacarotmaster">@cacarotmaster</a> · Constructivista-Humanista ✨</p>
 </footer>
 
 <script>
-const rubricas = {
-  s1: `<div class="rubrica"><h4>📊 Rúbrica — Semana 1</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Relaciona críticamente su experiencia personal con tendencias tecnológicas globales.</td><td>Línea de tiempo digital completa, creativa y bien documentada con al menos 8 hitos.</td><td>Reflexiona con profundidad sobre su dependencia tecnológica y propone cambios.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Identifica correctamente los hitos de su relación con la tecnología.</td><td>Línea de tiempo completa con 5-7 hitos bien presentados.</td><td>Reconoce su uso tecnológico pero con reflexión superficial.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Menciona algunos dispositivos pero sin contexto temporal claro.</td><td>Línea de tiempo con 3-4 hitos y presentación aceptable.</td><td>Participa mínimamente en la reflexión personal.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No demuestra comprensión de su relación con la tecnología.</td><td>Línea de tiempo incompleta o no entregada.</td><td>No participa en la reflexión ni muestra interés.</td></tr></table></div>`,
-  s2: `<div class="rubrica"><h4>📊 Rúbrica — Semana 2</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Analiza conexiones entre hitos tecnológicos y sus implicaciones sociales.</td><td>Infografía visualmente impactante con datos precisos y diseño original.</td><td>Participa activamente en la discusión, aportando preguntas y conexiones originales.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Identifica correctamente 7-10 hitos con sus fechas y contextos.</td><td>Infografía completa, clara y bien estructurada.</td><td>Participa en la discusión con aportes pertinentes.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Menciona 4-6 hitos con imprecisiones en fechas.</td><td>Infografía básica con información limitada.</td><td>Participa ocasionalmente en la discusión.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No identifica hitos relevantes de la evolución tecnológica.</td><td>Infografía incompleta o no entregada.</td><td>No participa en las discusiones.</td></tr></table></div>`,
-  s3: `<div class="rubrica"><h4>📊 Rúbrica — Semana 3</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Diferencia con precisión conocimiento científico, tecnológico y sus intersecciones con ejemplos propios.</td><td>Mapa mental con jerarquía clara, conexiones cruzadas y ejemplos contextualizados.</td><td>Lidera el análisis de casos, integrando perspectivas de sus compañeros.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Diferencia correctamente ciencia y tecnología con ejemplos del curso.</td><td>Mapa mental organizado con conexiones lógicas entre conceptos.</td><td>Participa activamente en el análisis de casos.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Define los conceptos pero no los diferencia claramente.</td><td>Mapa mental con estructura básica y pocas conexiones.</td><td>Participa cuando se le solicita directamente.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>Confunde ciencia y tecnología o no las define.</td><td>Mapa mental desorganizado o no entregado.</td><td>No participa en el análisis de casos.</td></tr></table></div>`,
-  s4: `<div class="rubrica"><h4>📊 Rúbrica — Semana 4</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Aplica el Design Thinking con comprensión profunda de cada etapa.</td><td>Documento de definición del problema con empatía real, 10+ ideas creativas y criterios de selección justificados.</td><td>Muestra empatía genuina al entrevistar y colabora activamente con su equipo.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Comprende y aplica correctamente las 5 etapas del Design Thinking.</td><td>Problema bien definido, 7-10 ideas, selección con criterios.</td><td>Entrevista con respeto y colabora con el equipo.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Nombra las etapas pero no las aplica con profundidad.</td><td>Problema definido de forma vaga, 3-6 ideas.</td><td>Participa en el trabajo en equipo de forma pasiva.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No demuestra comprensión del Design Thinking.</td><td>No define un problema claro o no genera ideas.</td><td>No colabora con el equipo.</td></tr></table></div>`,
-  s5: `<div class="rubrica"><h4>📊 Rúbrica — Semana 5</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Planifica integralmente considerando restricciones técnicas, de usuario y de contexto.</td><td>Boceto profesional, diagrama de flujo completo, 8+ requisitos bien categorizados.</td><td>Busca retroalimentación activamente e itera su diseño.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Planifica adecuadamente con requisitos funcionales y no funcionales.</td><td>Boceto claro, diagrama funcional, 5-7 requisitos.</td><td>Acepta sugerencias y ajusta su diseño.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Planifica de forma incompleta, omite requisitos importantes.</td><td>Boceto básico, diagrama simple, 3-4 requisitos.</td><td>Realiza ajustes mínimos cuando se le indica.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No demuestra capacidad de planificación.</td><td>Sin boceto, sin diagrama, sin requisitos.</td><td>No ajusta su diseño ante sugerencias.</td></tr></table></div>`,
-  s6: `<div class="rubrica"><h4>📊 Rúbrica — Semana 6</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Aplica principios antropométricos y ergonómicos con precisión, citando estándares.</td><td>Mediciones exactas, evaluación detallada de 3+ puestos, rediseño con mejoras cuantificables.</td><td>Propone mejoras ergonómicas que benefician a todos los usuarios, incluyendo aquellos con necesidades especiales.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Aplica correctamente conceptos de antropometría y ergonomía.</td><td>Mediciones correctas, evaluación de 2-3 puestos, rediseño con mejoras claras.</td><td>Considera la comodidad del usuario en sus propuestas.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Define los conceptos pero los aplica con imprecisiones.</td><td>Mediciones básicas, evaluación de 1 puesto, mejoras superficiales.</td><td>Menciona la importancia de la ergonomía sin aplicarla.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No comprende los conceptos de antropometría y ergonomía.</td><td>No realiza mediciones o son incorrectas.</td><td>No considera la ergonomía en sus diseños.</td></tr></table></div>`,
-  s7: `<div class="rubrica"><h4>📊 Rúbrica — Semana 7</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Sustenta cada decisión de diseño con argumentos técnicos sólidos.</td><td>Prototipo funcional, innovador, con pruebas documentadas y mejoras incorporadas.</td><td>Colabora con otros equipos dando y recibiendo retroalimentación constructiva.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Explica adecuadamente sus decisiones de diseño.</td><td>Prototipo funcional con pruebas básicas documentadas.</td><td>Prueba el prototipo de otro equipo y da feedback.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Justifica parcialmente sus decisiones de diseño.</td><td>Prototipo con funcionalidad limitada, pruebas mínimas.</td><td>Realiza pruebas superficiales del prototipo.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No puede explicar sus decisiones de diseño.</td><td>Prototipo no funcional o no entregado.</td><td>No participa en las pruebas ni retroalimentación.</td></tr></table></div>`,
-  s8: `<div class="rubrica"><h4>📊 Rúbrica — Semana 8</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Analiza críticamente impactos positivos y negativos con evidencia de fuentes académicas.</td><td>Encuesta bien diseñada, infografía con datos propios, argumentos sólidos en el debate.</td><td>Debate con respeto, escucha activa y construye sobre argumentos de otros.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Identifica impactos positivos y negativos con ejemplos concretos.</td><td>Encuesta aplicada, infografía clara, participa en el debate con argumentos.</td><td>Respeta turnos y opiniones diferentes en el debate.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Menciona impactos de forma general sin profundizar.</td><td>Encuesta con pocas respuestas, infografía simple, participa mínimamente.</td><td>Participa en el debate solo cuando se le asigna un turno.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No identifica impactos de la tecnología en los jóvenes.</td><td>No realiza encuesta ni infografía.</td><td>No participa en el debate o lo hace de forma irrespetuosa.</td></tr></table></div>`,
-  s9: `<div class="rubrica"><h4>📊 Rúbrica — Semana 9</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Analiza casos de privacidad con profundidad jurídica y ética, proponiendo marcos de protección.</td><td>Protocolo ético detallado con consentimiento informado, política de datos y mecanismos de transparencia.</td><td>Toma decisiones éticas autónomas y fundamentadas sobre sus propios datos digitales.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Comprende los riesgos de privacidad y los explica con ejemplos.</td><td>Protocolo ético con elementos de privacidad y consentimiento.</td><td>Reflexiona sobre su huella digital y toma precauciones.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Identifica algunos riesgos de privacidad sin profundizar.</td><td>Protocolo ético básico con elementos genéricos.</td><td>Muestra conciencia limitada sobre privacidad digital.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No comprende los conceptos de privacidad y ética digital.</td><td>No presenta protocolo ético.</td><td>No demuestra interés en proteger su privacidad.</td></tr></table></div>`,
-  s10: `<div class="rubrica"><h4>📊 Rúbrica — Semana 10</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Construye un protocolo de seguridad integral que aborda amenazas técnicas y humanas.</td><td>Guía de seguridad profesional con 10+ recomendaciones accionables, identifica phishing sofisticado.</td><td>Promueve activamente la seguridad digital entre sus compañeros y familiares.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Comprende amenazas comunes y sus mecanismos de protección.</td><td>Guía con 7-10 recomendaciones claras, identifica phishing básico.</td><td>Comparte recomendaciones de seguridad con otros.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Nombra amenazas sin explicar mecanismos de protección.</td><td>Guía con 4-6 recomendaciones genéricas.</td><td>Aplica seguridad solo cuando se le recuerda.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No comprende las amenazas de seguridad digital.</td><td>No presenta guía de seguridad.</td><td>No toma medidas de seguridad digital.</td></tr></table></div>`,
-  s11: `<div class="rubrica"><h4>📊 Rúbrica — Semana 11</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Analiza críticamente el ciclo de vida completo de dispositivos y propone alternativas de economía circular.</td><td>Campaña digital impactante, creativa y con llamado a la acción claro. Propuesta de sostenibilidad viable.</td><td>Actúa como agente de cambio, sensibilizando a su comunidad sobre residuos electrónicos.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Comprende el problema de los residuos electrónicos y sus impactos.</td><td>Campaña digital clara y bien diseñada. Propuesta de sostenibilidad coherente.</td><td>Muestra preocupación genuina por el impacto ambiental de la tecnología.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Menciona el problema sin analizar causas ni consecuencias.</td><td>Campaña simple con mensaje básico. Propuesta de sostenibilidad vaga.</td><td>Reconoce el problema pero no se involucra activamente.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No comprende la problemática de residuos tecnológicos.</td><td>No presenta campaña ni propuesta.</td><td>No demuestra interés en la sostenibilidad tecnológica.</td></tr></table></div>`,
-  s12: `<div class="rubrica"><h4>📊 Rúbrica — Semana 12</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Sustenta su prototipo con argumentos técnicos, éticos y de viabilidad, respondiendo preguntas con solvencia.</td><td>Pitch profesional (5 min), demo funcional, presentación visual impactante. Coevaluación detallada de otros equipos.</td><td>Comunica con pasión y claridad, inspira a otros y valora el trabajo de sus compañeros.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Explica su prototipo con claridad, cubriendo aspectos técnicos y de propósito.</td><td>Pitch estructurado, demo funcional, presentación clara. Coevaluación de otros equipos.</td><td>Presenta con seguridad y respeta las presentaciones de otros.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Explica su prototipo de forma limitada o con inseguridad.</td><td>Pitch incompleto, demo con fallas, presentación básica.</td><td>Presenta con timidez o desinterés.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No puede explicar su prototipo.</td><td>No presenta pitch ni demo.</td><td>No participa en la feria tecnológica.</td></tr></table></div>`,
-  s13: `<div class="rubrica"><h4>📊 Rúbrica — Semana 13</h4>
-<table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr>
-<tr><td class="sup">Superior (4-5)</td><td>Demuestra conocimiento integral conectando todos los aprendizajes del período con proyección a futuro.</td><td>Portafolio digital profesional, reflexión metacognitiva profunda con plan de aplicación futura.</td><td>Autoevalúa con honestidad, reconoce fortalezas y áreas de mejora con madurez.</td></tr>
-<tr><td class="alt">Alto (3.5-3.9)</td><td>Integra los principales aprendizajes del período con claridad.</td><td>Portafolio completo y organizado, reflexión pertinente.</td><td>Se autoevalúa con sinceridad e identifica aprendizajes clave.</td></tr>
-<tr><td class="bas">Básico (3.0-3.4)</td><td>Menciona algunos aprendizajes sin integrarlos.</td><td>Portafolio básico con evidencias limitadas, reflexión superficial.</td><td>Autoevaluación genérica sin profundidad.</td></tr>
-<tr><td class="baj">Bajo (1-2.9)</td><td>No demuestra aprendizaje significativo del período.</td><td>No presenta portafolio digital.</td><td>No realiza autoevaluación.</td></tr></table></div>`
-};
+// ====== DATOS P2 (abreviados, mismos que antes) ======
+const indP2 = {saber:["Reconozco la incidencia del conocimiento tecnológico para el desarrollo de futuros sistemas.","Planifico y diseño prototipos para representar realidades tecnológicas.","Aplico la antropometría, ergonomía y aspectos económicos para solución de problemas en diferentes contextos.","Debato los impactos positivos y negativos de la tecnología en las personas, especialmente los jóvenes."],hacer:["Sustento mis propuestas de desarrollo tecnológico e informático mediante saberes de base tecnológica.","Diseño, construyo y pruebo prototipos de tecnología para dar respuesta a un problema planteado.","Propongo, analizo y comparo las diferentes soluciones para solucionar un problema en un contexto.","Construyo críticamente protocolos de seguridad y usos éticos para proteger información y redes."],ser:["Demuestro interés y participo de discusiones sobre el origen y evolución de la tecnología, para mejorar calidad de vida.","Valoro el uso de la tecnología para brindar soluciones múltiples en diferentes contextos.","Demuestro conocimiento al aplicar soluciones en contextos para diferentes problemas.","Tomo decisiones éticas relacionadas con implicaciones éticas de la tecnología para brindar soluciones."]};
 
-const weeks = [
-  {
-    num:"Semana 1",title:"La Tecnología y Yo — Diagnóstico Inicial",
-    indicator:"Debato los impactos positivos y negativos de la tecnología en las personas, especialmente los jóvenes.",
-    activities:"Línea de tiempo digital personal (Canva/Genially) · Foro virtual 'Un día sin tecnología' · Formulario diagnóstico Google Forms",
-    lectura:`<h4>📖 Lectura: Nuestra relación con la tecnología</h4>
-<p>Vivimos en una era donde la frontera entre lo humano y lo tecnológico se desdibuja. Prensky (2001) acuñó el término "nativos digitales" para describir a quienes han crecido rodeados de computadores, videojuegos e internet, y afirmó que <span class="cita">"los estudiantes de hoy ya no son las personas para las que nuestro sistema educativo fue diseñado"</span>. Esta ruptura generacional implica que ustedes procesan la información de manera fundamentalmente diferente a sus padres y docentes.</p>
-<p>Sin embargo, Turkle (2011) advierte que <span class="cita">"esperamos más de la tecnología y menos el uno del otro"</span>, señalando cómo los dispositivos nos conectan globalmente pero pueden aislarnos en lo local. En Colombia, el Ministerio TIC (2022) reporta que el 78% de los jóvenes entre 15 y 24 años accede a internet diariamente, principalmente a través del celular. ¿Qué significa esto para tu generación?</p>
-<div class="ref"><b>Referencias:</b> Prensky, M. (2001). Digital natives, digital immigrants. <i>On the Horizon</i>, 9(5), 1-6. · Turkle, S. (2011). <i>Alone together: Why we expect more from technology and less from each other</i>. Basic Books. · Ministerio TIC Colombia. (2022). <i>Plan Nacional de Desarrollo TIC 2022-2026</i>.</div>`,
-    rubrica:"s1"
-  },
-  {
-    num:"Semana 2",title:"Origen y Evolución de la Tecnología",
-    indicator:"Planifico y diseño prototipos para representar realidades tecnológicas.",
-    activities:"WebQuest guiada de hitos tecnológicos · Infografía digital colaborativa · Galería virtual en Padlet",
-    lectura:`<h4>📖 Lectura: De la piedra al algoritmo</h4>
-<p>La historia de la tecnología es la historia de la humanidad resolviendo problemas. Desde el fuego hasta la inteligencia artificial, cada innovación ha transformado nuestra forma de vivir. Cabero (2007) define la tecnología como <span class="cita">"el conjunto de conocimientos, habilidades, técnicas y procedimientos que permiten diseñar y crear bienes o servicios que satisfacen necesidades humanas"</span>, una definición que va mucho más allá de los aparatos electrónicos.</p>
-<p>Floridi (2014) propone que estamos viviendo la cuarta revolución, después de Copérnico, Darwin y Freud: <span class="cita">"Estamos dejando de ser organismos aislados para convertirnos en organismos informacionales interconectados"</span>. En Colombia, la imprenta llegó en 1738, el telégrafo en 1865, y la internet comercial en 1994. Cada 15 años aproximadamente se duplica la capacidad de procesamiento — ¿qué significa esto para el futuro que van a construir?</p>
-<div class="ref"><b>Referencias:</b> Cabero Almenara, J. (2007). <i>Nuevas tecnologías aplicadas a la educación</i>. McGraw-Hill. · Floridi, L. (2014). <i>The fourth revolution: How the infosphere is reshaping human reality</i>. Oxford University Press.</div>`,
-    rubrica:"s2"
-  },
-  {
-    num:"Semana 3",title:"Naturaleza del Conocimiento Tecnológico",
-    indicator:"Reconozco la incidencia del conocimiento tecnológico para el desarrollo de futuros sistemas.",
-    activities:"Mapa mental colaborativo (Miro) · Análisis de casos: ciencia vs tecnología · Quiz interactivo Kahoot",
-    lectura:`<h4>📖 Lectura: Ciencia y tecnología — ¿iguales o diferentes?</h4>
-<p>Una confusión frecuente es pensar que ciencia y tecnología son lo mismo. La ciencia busca explicar el mundo natural (el "por qué"); la tecnología busca transformarlo (el "cómo"). Cobo (2016) lo explica así: <span class="cita">"Mientras la ciencia produce conocimiento verificable, la tecnología produce soluciones funcionales. Ambas se necesitan mutuamente pero operan con lógicas diferentes"</span>.</p>
-<p>Morin (1999) añade que <span class="cita">"el conocimiento pertinente es aquel capaz de situar la información en su contexto global"</span>. En la práctica: la ciencia descubrió el silicio como semiconductor; la tecnología lo usó para crear microchips. La ciencia estudió las ondas electromagnéticas; la tecnología inventó la radio. ¿Puedes identificar otros ejemplos donde la ciencia y la tecnología se encuentren en tu vida diaria?</p>
-<div class="ref"><b>Referencias:</b> Cobo, C. (2016). <i>La innovación pendiente: Reflexiones sobre educación, tecnología y conocimiento</i>. Penguin Random House. · Morin, E. (1999). <i>Los siete saberes necesarios para la educación del futuro</i>. UNESCO.</div>`,
-    rubrica:"s3"
-  },
-  {
-    num:"Semana 4",title:"Design Thinking — Ideación de Soluciones",
-    indicator:"Propongo, analizo y comparo las diferentes soluciones para solucionar un problema en un contexto.",
-    activities:"Taller Design Thinking (5 etapas) · Lluvia de ideas en Jamboard · Selección del problema para proyecto semestral",
-    lectura:`<h4>📖 Lectura: Diseñar es pensar</h4>
-<p>El Design Thinking es una metodología centrada en las personas para resolver problemas complejos. Nació en Stanford y fue popularizado por la firma IDEO. Oppenheimer (2014) destaca que <span class="cita">"la innovación no depende del coeficiente intelectual sino de la capacidad de observar, empatizar y experimentar"</span>. Sus cinco etapas —empatizar, definir, idear, prototipar y evaluar— son un ciclo iterativo, no una línea recta.</p>
-<p>Freire (1970) ya anticipaba esta lógica desde la pedagogía: <span class="cita">"Nadie educa a nadie, nadie se educa solo, los hombres se educan entre sí mediados por el mundo"</span>. Design Thinking aplica este principio: las mejores soluciones surgen cuando entendemos profundamente a las personas y co-creamos con ellas. En Colombia, empresas como Rappi, Platzi y La Haus usaron metodologías ágiles de diseño para crear productos que millones usan. ¿Qué problema de tu comunidad merece una solución diseñada con empatía?</p>
-<div class="ref"><b>Referencias:</b> Oppenheimer, A. (2014). <i>¡Crear o morir! La esperanza de América Latina</i>. Debate. · Freire, P. (1970). <i>Pedagogía del oprimido</i>. Siglo XXI Editores.</div>`,
-    rubrica:"s4"
-  },
-  {
-    num:"Semana 5",title:"Bocetado y Planificación del Prototipo",
-    indicator:"Planifico y diseño prototipos para representar realidades tecnológicas.",
-    activities:"Boceto digital (Draw.io/Excalidraw) · Requisitos funcionales y no funcionales · Diagrama de flujo",
-    lectura:`<h4>📖 Lectura: Del papel al píxel</h4>
-<p>Todo gran producto tecnológico empezó con un boceto: el iPhone en una servilleta, Twitter en un cuaderno, Facebook en una pizarra. El bocetado es la traducción visual del pensamiento. Siemens (2005) sostiene que <span class="cita">"el aprendizaje y el conocimiento descansan en la diversidad de opiniones"</span>, y en el diseño esto significa que bocetar permite externalizar ideas para que otras personas puedan mejorarlas.</p>
-<p>Cabero Almenara (2007) recuerda que <span class="cita">"el diseño de materiales no es un proceso mecánico sino reflexivo y creativo"</span>. Un buen boceto comunica la esencia de tu idea sin necesidad de que esté terminada. Los diagramas de flujo, por su parte, te ayudan a visualizar la lógica de funcionamiento. Pregúntate: ¿qué hace tu prototipo?, ¿para quién?, ¿cómo funciona paso a paso?</p>
-<div class="ref"><b>Referencias:</b> Siemens, G. (2005). Connectivism: A learning theory for the digital age. <i>International Journal of Instructional Technology</i>, 2(1). · Cabero Almenara, J. (2007). <i>Nuevas tecnologías aplicadas a la educación</i>. McGraw-Hill.</div>`,
-    rubrica:"s5"
-  },
-  {
-    num:"Semana 6",title:"Antropometría y Ergonomía en el Diseño",
-    indicator:"Aplico la antropometría, ergonomía y aspectos económicos para solución de problemas en diferentes contextos.",
-    activities:"Medición antropométrica en sala · Evaluación ergonómica de puestos de trabajo · Rediseño con criterios ergonómicos",
-    lectura:`<h4>📖 Lectura: Diseñar para el cuerpo humano</h4>
-<p>¿Por qué te duele la espalda después de horas frente al computador? Probablemente porque tu puesto de trabajo no fue diseñado para tu cuerpo. La ergonomía estudia la adaptación del entorno a las capacidades y limitaciones humanas. Selwyn (2014) enfatiza que <span class="cita">"la tecnología no es neutral: cada diseño incorpora suposiciones sobre quién la usará y cómo"</span>.</p>
-<p>En Colombia, la Norma Técnica Colombiana NTC 3955 establece los principios de diseño ergonómico para puestos de trabajo. Un dato revelador: el percentil 50 (la "persona promedio") no existe realmente; diseñar para el promedio significa diseñar para nadie. Como señala Cobo (2016), <span class="cita">"la verdadera inclusión digital no es solo acceso, es diseño que considera la diversidad humana"</span>. Mide tu altura, el alcance de tus brazos, la altura de tus ojos al sentarte. ¿Tu prototipo considera estas dimensiones?</p>
-<div class="ref"><b>Referencias:</b> Selwyn, N. (2014). <i>Digital technology and the contemporary university</i>. Routledge. · Cobo, C. (2016). <i>La innovación pendiente</i>. Penguin Random House. · ICONTEC. (2020). NTC 3955: Ergonomía — Principios para el diseño de sistemas de trabajo.</div>`,
-    rubrica:"s6"
-  },
-  {
-    num:"Semana 7",title:"Prototipado Digital — Manos a la Obra",
-    indicator:"Diseño, construyo y pruebo prototipos de tecnología para dar respuesta a un problema planteado.",
-    activities:"Tutorial de herramienta (Figma/Tinkercad/Canva) · Construcción V1 del prototipo · Pruebas internas con feedback",
-    lectura:`<h4>📖 Lectura: Construir, probar, mejorar</h4>
-<p>Prototipar es pensar con las manos. Un prototipo no necesita ser perfecto; necesita ser lo suficientemente bueno para que alguien pueda probarlo y darte retroalimentación. Oppenheimer (2014) relata cómo en Silicon Valley <span class="cita">"el fracaso es visto como un paso necesario hacia la innovación: la clave es fallar rápido y barato para aprender pronto"</span>.</p>
-<p>UNESCO (2023) advierte que <span class="cita">"la tecnología en educación debe priorizar el desarrollo de habilidades humanas sobre el consumo de contenidos"</span>. Construir tu propio prototipo te convierte en creador, no solo en consumidor de tecnología. Hoy cuentas con herramientas como Figma para apps, Tinkercad para modelos 3D, Canva para diseño visual. Elige la que mejor se adapte a tu idea y construye una primera versión. Recuerda: hecho es mejor que perfecto.</p>
-<div class="ref"><b>Referencias:</b> Oppenheimer, A. (2014). <i>¡Crear o morir!</i>. Debate. · UNESCO. (2023). <i>Global Education Monitoring Report: Technology in education — A tool on whose terms?</i></div>`,
-    rubrica:"s7"
-  },
-  {
-    num:"Semana 8",title:"Impacto de la Tecnología en los Jóvenes",
-    indicator:"Debato los impactos positivos y negativos de la tecnología en las personas, especialmente los jóvenes.",
-    activities:"Investigación en Google Scholar · Encuesta de hábitos digitales · Debate virtual estructurado",
-    lectura:`<h4>📖 Lectura: ¿La tecnología nos hace más o nos hace menos?</h4>
-<p>Las redes sociales, los videojuegos y la IA están transformando la juventud de maneras que apenas empezamos a comprender. Carr (2010) advierte que <span class="cita">"internet nos está convirtiendo en lectores superficiales, que hojeamos en lugar de sumergirnos"</span>, sugiriendo que nuestra capacidad de atención profunda está disminuyendo. Sin embargo, no todo es negativo.</p>
-<p>UNESCO (2023) encontró que <span class="cita">"cuando se usa con propósito pedagógico, la tecnología digital puede ampliar el acceso al aprendizaje, diversificar los recursos y personalizar la experiencia educativa"</span>. En Colombia, el DANE reporta que el 92% de los hogares urbanos tiene al menos un celular inteligente, convirtiendo al móvil en la principal puerta de entrada al mundo digital. ¿El reto? Pasar de consumidores pasivos a creadores activos. ¿De qué lado estás tú?</p>
-<div class="ref"><b>Referencias:</b> Carr, N. (2010). <i>The shallows: What the internet is doing to our brains</i>. W.W. Norton. · UNESCO. (2023). <i>Global Education Monitoring Report</i>. UNESCO. · DANE. (2023). Encuesta de Calidad de Vida.</div>`,
-    rubrica:"s8"
-  },
-  {
-    num:"Semana 9",title:"Ética Tecnológica — Privacidad y Datos",
-    indicator:"Tomo decisiones éticas relacionadas con implicaciones éticas de la tecnología para brindar soluciones.",
-    activities:"Análisis de casos reales (Cambridge Analytica) · Lectura de TyC de apps populares · Protocolo ético del prototipo",
-    lectura:`<h4>📖 Lectura: Tus datos hablan de ti — ¿quién los escucha?</h4>
-<p>Cada vez que aceptas los "términos y condiciones" sin leerlos, estás entregando información valiosa sobre ti. Floridi (2014) sostiene que <span class="cita">"la privacidad no es solo un derecho individual, es un bien social que permite la formación de identidades autónomas"</span>. El caso de Cambridge Analytica en 2018 demostró cómo los datos personales pueden usarse para manipular elecciones.</p>
-<p>En Colombia, la Ley 1581 de 2012 protege el derecho al habeas data, pero su aplicación en el entorno digital es limitada. Como señala Selwyn (2014), <span class="cita">"los usuarios rara vez comprenden completamente cómo se recopilan, almacenan y utilizan sus datos"</span>. Tu prototipo manejará información de personas: ¿cómo garantizarás su privacidad? ¿Pedirás consentimiento informado? ¿Explicarás claramente qué datos recopilas y para qué?</p>
-<div class="ref"><b>Referencias:</b> Floridi, L. (2014). <i>The fourth revolution</i>. Oxford. · Selwyn, N. (2014). <i>Digital technology and the contemporary university</i>. Routledge. · Congreso de Colombia. (2012). Ley 1581 de 2012: Protección de datos personales.</div>`,
-    rubrica:"s9"
-  },
-  {
-    num:"Semana 10",title:"Ciberseguridad — Protege tu Mundo Digital",
-    indicator:"Construyo críticamente protocolos de seguridad y usos éticos para proteger información y redes.",
-    activities:"Taller de contraseñas seguras y 2FA · Simulacro de phishing · Guía de seguridad digital para la comunidad",
-    lectura:`<h4>📖 Lectura: El eslabón más débil eres tú</h4>
-<p>La mayoría de los ciberataques no requieren complejos hackeos: basta con un correo convincente o una contraseña reutilizada. La ingeniería social explota la confianza humana. Carr (2010) observa que <span class="cita">"cuanto más externalizamos nuestra memoria a los dispositivos, más vulnerables nos volvemos a sus fallos"</span>. Un dato alarmante: el 81% de las filtraciones de datos en 2023 se debieron a contraseñas débiles o reutilizadas.</p>
-<p>En Colombia, la Fiscalía General reportó más de 60.000 denuncias por delitos informáticos en 2023, un aumento del 25% respecto al año anterior. Bauman (2007) nos recuerda que <span class="cita">"en la modernidad líquida, la seguridad es un bien escaso que cada individuo debe construir por sí mismo"</span>. Activa la verificación en dos pasos (2FA) en todas tus cuentas hoy mismo. Usa un gestor de contraseñas. Aprende a identificar un correo de phishing: ¿la dirección del remitente es legítima? ¿El mensaje crea urgencia falsa? ¿Te pide datos personales?</p>
-<div class="ref"><b>Referencias:</b> Carr, N. (2010). <i>The shallows</i>. Norton. · Bauman, Z. (2007). <i>Los retos de la educación en la modernidad líquida</i>. Gedisa. · Fiscalía General de la Nación. (2023). Informe de delitos informáticos.</div>`,
-    rubrica:"s10"
-  },
-  {
-    num:"Semana 11",title:"Residuos Tecnológicos y Sostenibilidad",
-    indicator:"Propongo, analizo y comparo las diferentes soluciones para solucionar un problema en un contexto.",
-    activities:"Documental sobre basura electrónica · Cálculo de huella electrónica personal · Campaña digital de concientización",
-    lectura:`<h4>📖 Lectura: La cara oculta de tus dispositivos</h4>
-<p>Colombia genera aproximadamente 150.000 toneladas de residuos electrónicos al año, de las cuales solo se recicla el 5%. Cada celular que desechas contiene oro, plata, cobre y materiales tóxicos como plomo y mercurio. Oppenheimer (2014) plantea que <span class="cita">"la innovación no puede medirse solo en ganancias sino en su capacidad de resolver problemas sociales y ambientales"</span>.</p>
-<p>Morin (1999) fue visionario al advertir que <span class="cita">"necesitamos una conciencia ecológica que entienda que todo está interconectado"</span>. La economía circular propone un modelo donde los productos se diseñan para ser reparados, reutilizados y reciclados, en lugar de desechados. ¿Cuántos celulares has tenido en tu vida? ¿Dónde están ahora? ¿Tu prototipo considera qué pasará con él cuando deje de ser útil?</p>
-<div class="ref"><b>Referencias:</b> Oppenheimer, A. (2014). <i>¡Crear o morir!</i>. Debate. · Morin, E. (1999). <i>Los siete saberes necesarios</i>. UNESCO. · MinAmbiente Colombia. (2022). Política nacional para la gestión integral de residuos de aparatos eléctricos y electrónicos.</div>`,
-    rubrica:"s11"
-  },
-  {
-    num:"Semana 12",title:"Feria Tecnológica — Presenta tu Prototipo",
-    indicator:"Sustento mis propuestas de desarrollo tecnológico e informático mediante saberes de base tecnológica.",
-    activities:"Preparación de pitch de 5 minutos · Feria virtual con coevaluación · Premios: Innovador, Sostenible, Ético, Diseño",
-    lectura:`<h4>📖 Lectura: Comunicar es convencer</h4>
-<p>El mejor prototipo del mundo fracasa si no sabes comunicarlo. Un pitch efectivo cuenta una historia: el problema, la solución, por qué es diferente y por qué debería importarle a quien escucha. Cobo (2016) afirma que <span class="cita">"en la economía del conocimiento, la capacidad de comunicar ideas complejas de forma clara es tan valiosa como la capacidad de generarlas"</span>.</p>
-<p>Oppenheimer (2014) documenta cómo en los grandes centros de innovación <span class="cita">"las ideas más disruptivas suelen presentarse con la simplicidad de quien entiende profundamente su propuesta"</span>. Tu pitch de 5 minutos debe responder: ¿qué problema resuelves?, ¿cómo funciona tu prototipo?, ¿qué lo hace diferente?, ¿a quién beneficia? Ensaya frente a un espejo, grábate, ajusta. La claridad es generosidad con tu audiencia.</p>
-<div class="ref"><b>Referencias:</b> Cobo, C. (2016). <i>La innovación pendiente</i>. Penguin. · Oppenheimer, A. (2014). <i>¡Crear o morir!</i>. Debate.</div>`,
-    rubrica:"s12"
-  },
-  {
-    num:"Semana 13",title:"Cierre, Reflexión y Portafolio Digital",
-    indicator:"Demuestro conocimiento al aplicar soluciones en contextos para diferentes problemas.",
-    activities:"Portafolio digital (Google Sites) · Autoevaluación y reflexión metacognitiva · Encuesta de cierre · Insignia digital",
-    lectura:`<h4>📖 Lectura: Aprender a aprender</h4>
-<p>La metacognición —pensar sobre cómo pensamos— es quizás la habilidad más valiosa que puedes desarrollar. Implica preguntarte: ¿qué aprendí?, ¿cómo lo aprendí?, ¿qué haría diferente la próxima vez? Freire (1970) sostenía que <span class="cita">"la educación no cambia el mundo, cambia a las personas que van a cambiar el mundo"</span>. Un portafolio digital no es solo una colección de trabajos, es la evidencia de tu transformación como creador tecnológico.</p>
-<p>Bauman (2007) reflexiona que <span class="cita">"en un mundo líquido, la capacidad de aprender, desaprender y reaprender es más importante que acumular conocimientos fijos"</span>. Al cerrar este período, pregúntate: ¿cómo ha cambiado tu relación con la tecnología? ¿Qué harás con lo aprendido? ¿Cómo aplicarás el diseño ético, la ergonomía y la sostenibilidad en tu futuro, sea cual sea el camino que elijas?</p>
-<div class="ref"><b>Referencias:</b> Freire, P. (1970). <i>Pedagogía del oprimido</i>. Siglo XXI. · Bauman, Z. (2007). <i>Los retos de la educación en la modernidad líquida</i>. Gedisa.</div>`,
-    rubrica:"s13"
-  }
+// ====== DATOS P3 ======
+const indP3 = {saber:["Identifico las diferencias de un prospecto, diseño, maqueta para un montaje.","Identifico condiciones, especificaciones y restricciones de diseño, utilizadas para solución de diseños tecnológicos.","Represento ideas para innovación y creación de soluciones en tecnología.","Represento con ayudas informáticas los avances de la ciencia, sus pro y sus contras en la tecnología."],hacer:["Evalúo la forma en que los procesos, conocimientos y sistemas para ayudar en soluciones tecnológicas.","Utilizo herramientas informáticas como medio de comunicación de ideas y compartirlas con la comunidad.","Propongo, analizo y comparo diferentes alternativas que pueden servir para soluciones en contexto.","Propongo debates sobre el buen uso y manejo ético de los medios tecnológicos e informáticos sin afectar a las personas."],ser:["Tomo parte en equipos de trabajo para hacer seguimiento a la evolución de la tecnología.","Demuestro mi interés para realizar actividades propuestas por el docente en las clases.","Interiorizo que la mejor solución no es siempre la más costosa sino la que implique menos gastos para su solución.","Planteo debates al interior del aula para fomentar el buen uso de las tecnologías de la información y la comunicación."]};
+
+// Lecturas P3
+const lectP3 = [
+  {t:"Del prospecto al montaje",c:['Cabero (2007) define el diseño tecnológico como "el proceso reflexivo y creativo que transforma necesidades en soluciones funcionales".','Cobo (2016) señala que "un prospecto no es solo un documento técnico, es la materialización de una visión".'],r:"Cabero, J. (2007). Nuevas tecnologías aplicadas a la educación. McGraw-Hill. · Cobo, C. (2016). La innovación pendiente. Penguin."},
+  {t:"Especificaciones y restricciones",c:['Selwyn (2014) advierte que "todo diseño incorpora restricciones —técnicas, económicas, éticas— que determinan su viabilidad".','Oppenheimer (2014) documenta que "las grandes innovaciones no ignoran las restricciones, las convierten en ventajas competitivas".'],r:"Selwyn, N. (2014). Digital technology and the contemporary university. Routledge. · Oppenheimer, A. (2014). ¡Crear o morir!. Debate."},
+  {t:"Comunicar ideas con TIC",c:['UNESCO (2023) afirma que "la competencia digital no es solo consumir, sino crear y comunicar contenido con propósito".','Cobo (2016) destaca que "en la economía del conocimiento, comunicar ideas complejas de forma clara es tan valioso como generarlas".'],r:"UNESCO. (2023). GEM Report: Technology in education. · Cobo, C. (2016). La innovación pendiente. Penguin."},
+  {t:"Contenido multimedia",c:['Prensky (2001) propuso que "los nativos digitales no solo consumen multimedia, piensan y se expresan en ella".','Oppenheimer (2014) observa que "un video de 1 minuto bien hecho puede tener más impacto que un informe de 50 páginas".'],r:"Prensky, M. (2001). Digital natives, digital immigrants. On the Horizon. · Oppenheimer, A. (2014). ¡Crear o morir!. Debate."},
+  {t:"Representar ideas",c:['Siemens (2005) sostiene que "externalizar el conocimiento mediante representaciones visuales es una habilidad central del aprendizaje conectivo".','Cabero (2007) afirma que "un boceto comunica más que mil palabras cuando está bien concebido".'],r:"Siemens, G. (2005). Connectivism. IJIT. · Cabero, J. (2007). Nuevas tecnologías. McGraw-Hill."},
+  {t:"Comparar alternativas",c:['Floridi (2014) plantea que "en la era de la información, la capacidad de comparar y elegir entre alternativas es una competencia ética fundamental".','Morin (1999) advierte que "el conocimiento pertinente es aquel capaz de situar la información en su contexto y evaluar opciones".'],r:"Floridi, L. (2014). The fourth revolution. Oxford. · Morin, E. (1999). Los siete saberes. UNESCO."},
+  {t:"Costo-beneficio",c:['Oppenheimer (2014) documenta cómo "en América Latina, las innovaciones más transformadoras suelen ser las de bajo costo y alto impacto".','Bauman (2007) reflexiona que "en la modernidad líquida, la eficiencia no se mide en gasto sino en valor generado por recurso invertido".'],r:"Oppenheimer, A. (2014). ¡Crear o morir!. Debate. · Bauman, Z. (2007). Los retos de la educación. Gedisa."},
+  {t:"Avances científicos con TIC",c:['UNESCO (2023) señala que "la alfabetización científica digital permite a los ciudadanos comprender y participar en debates sobre ciencia y tecnología".','Morin (1999) insistía en que "la ciencia debe ser comunicada de forma que los ciudadanos puedan apropiarse de ella".'],r:"UNESCO. (2023). GEM Report. · Morin, E. (1999). Los siete saberes. UNESCO."},
+  {t:"Pros y contras visuales",c:['Carr (2010) advierte que "internet reconfigura nuestros cerebros, para bien y para mal, y debemos ser conscientes de ambas caras".','Floridi (2014) afirma que "toda tecnología es un pharmakon: remedio y veneno según su uso".'],r:"Carr, N. (2010). The shallows. Norton. · Floridi, L. (2014). The fourth revolution. Oxford."},
+  {t:"Uso ético de medios",c:['Turkle (2011) alerta que "esperamos más de la tecnología y menos el uno del otro, y ese desbalance tiene consecuencias éticas profundas".','Freire (1970) enseñaba que "la educación es un acto de amor y por tanto de valentía para debatir lo que nos afecta".'],r:"Turkle, S. (2011). Alone together. Basic Books. · Freire, P. (1970). Pedagogía del oprimido. Siglo XXI."},
+  {t:"Campaña buen uso TIC",c:['Bauman (2007) propone que "en la sociedad líquida, cada generación debe reconstruir sus propios códigos éticos de convivencia digital".','UNESCO (2023) enfatiza que "los jóvenes no son solo receptores de campañas, son los mejores embajadores del cambio entre sus pares".'],r:"Bauman, Z. (2007). Los retos de la educación. Gedisa. · UNESCO. (2023). GEM Report."},
+  {t:"Presentación de proyectos",c:['Oppenheimer (2014) sostiene que "las ideas más disruptivas suelen presentarse con la simplicidad de quien las entiende profundamente".','Cobo (2016) afirma que "la capacidad de sintetizar y comunicar es la competencia más demandada en el siglo XXI".'],r:"Oppenheimer, A. (2014). ¡Crear o morir!. · Cobo, C. (2016). La innovación pendiente."},
+  {t:"Debate final y cierre",c:['Freire (1970) nos recuerda que "la educación no cambia el mundo, cambia a las personas que van a cambiar el mundo".','Bauman (2007) concluye que "aprender, desaprender y reaprender es la única constante en tiempos líquidos".'],r:"Freire, P. (1970). Pedagogía del oprimido. · Bauman, Z. (2007). Los retos de la educación. Gedisa."}
 ];
 
-// Render timeline
-const timeline = document.getElementById('timeline');
-weeks.forEach((w, i) => {
-  const card = document.createElement('div');
-  card.className = 'week-card';
-  card.style.animation = `fadeInUp 0.5s ease ${i*0.05}s both`;
-  card.innerHTML = `
-    <div class="num">${w.num}</div>
-    <h3>${w.title}</h3>
-    <div class="indicator">📌 ${w.indicator}</div>
-    <div class="activities">🖥️ ${w.activities}</div>
-    <span class="tag">📖 Lectura + Rúbrica →</span>
-  `;
-  card.addEventListener('click', () => openModal(w));
-  timeline.appendChild(card);
-});
+// Generar indicadores HTML
+function renderIndicadores(ind, container) {
+  const g = (t,arr) => `<div class="ind-group"><h4>${t}</h4><ul>${arr.map(l=>'<li>'+l+'</li>').join('')}</ul></div>`;
+  document.getElementById(container).innerHTML = '<h2>📋 Indicadores de Desempeño</h2><div class="indicators-grid">'+g('🧠 SABER',ind.saber)+g('🔧 HACER',ind.hacer)+g('💜 SER',ind.ser)+'</div>';
+}
 
+// Renderizar timeline
+function renderTimeline(weeks, container) {
+  const tl = document.getElementById(container);
+  weeks.forEach((w,i) => {
+    const card = document.createElement('div');
+    card.className = 'week-card';
+    card.style.animation = 'fadeInUp 0.4s ease '+(i*0.04)+'s both';
+    card.innerHTML = '<div class="num">'+w.num+'</div><h3>'+w.title+'</h3><div class="indicator">📌 '+w.indicator+'</div><div class="activities">🖥️ '+w.activities+'</div><span class="tag">📖 Lectura + Rúbrica →</span>';
+    card.addEventListener('click', ()=>openModal(w));
+    tl.appendChild(card);
+  });
+}
+
+// ====== DATOS SEMANAS P2 (heredados del sitio anterior) ======
+// Como referencia, los datos P2 se preservan del sitio anterior
+// (Se mantienen en el HTML original ya cargado)
+
+// ====== SEMANAS P3 ======
+const weeksP3 = [
+  {num:"Sem 1",title:"Del Prospecto al Montaje — Diseño Tecnológico",indicator:indP3.saber[0],activities:"Taller: prospecto vs diseño vs maqueta · Crear prospecto digital en Canva · Foro de expectativas en Padlet",
+   lectura:'<h4>📖 Lectura: '+lectP3[0].t+'</h4><p>'+lectP3[0].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[0].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 1</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior (4-5)</td><td>Diferencia con precisión los 4 conceptos con ejemplos propios.</td><td>Prospecto profesional, detallado y creativo.</td><td>Participa activamente con reflexiones profundas.</td></tr><tr><td class="alt">Alto (3.5-3.9)</td><td>Diferencia correctamente los 4 conceptos.</td><td>Prospecto completo y bien presentado.</td><td>Participa con aportes pertinentes.</td></tr><tr><td class="bas">Básico (3.0-3.4)</td><td>Diferencia 2-3 conceptos.</td><td>Prospecto básico o incompleto.</td><td>Participa ocasionalmente.</td></tr><tr><td class="baj">Bajo (1-2.9)</td><td>Confunde los conceptos.</td><td>No presenta prospecto.</td><td>No participa en el foro.</td></tr></table></div>'},
+  {num:"Sem 2",title:"Especificaciones y Restricciones de Diseño",indicator:indP3.saber[1],activities:"Análisis de casos reales (Samsung, Boeing) · Ficha de especificaciones en Google Docs · Quiz Kahoot",
+   lectura:'<h4>📖 Lectura: '+lectP3[1].t+'</h4><p>'+lectP3[1].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[1].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 2</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Identifica con análisis crítico de casos.</td><td>Ficha con 8+ items detallados.</td><td>Propone restricciones proactivas.</td></tr><tr><td class="alt">Alto</td><td>Identifica correctamente.</td><td>Ficha con 5-7 items.</td><td>Analiza con claridad.</td></tr><tr><td class="bas">Básico</td><td>Identifica genéricamente.</td><td>Ficha con 3-4 items.</td><td>Análisis superficial.</td></tr><tr><td class="baj">Bajo</td><td>No identifica.</td><td>Ficha incompleta.</td><td>No analiza.</td></tr></table></div>'},
+  {num:"Sem 3",title:"Herramientas Informáticas para Comunicar Ideas I",indicator:indP3.hacer[1],activities:"Exploración: Canva, Genially, Gamma, Slides · Presentación interactiva · Publicar en Padlet + coevaluar",
+   lectura:'<h4>📖 Lectura: '+lectP3[2].t+'</h4><p>'+lectP3[2].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[2].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 3</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Domina múltiples herramientas.</td><td>Presentación profesional y creativa.</td><td>Coevaluación detallada.</td></tr><tr><td class="alt">Alto</td><td>Usa 2+ herramientas.</td><td>Presentación clara e interactiva.</td><td>Coevaluación pertinente.</td></tr><tr><td class="bas">Básico</td><td>Usa 1 herramienta.</td><td>Presentación simple.</td><td>Coevaluación superficial.</td></tr><tr><td class="baj">Bajo</td><td>No usa herramientas.</td><td>No presenta.</td><td>No coevalúa.</td></tr></table></div>'},
+  {num:"Sem 4",title:"Herramientas Informáticas para Comunicar Ideas II",indicator:indP3.hacer[1],activities:"Taller video (CapCut) · Taller infografía animada · Taller podcast · Elegir 2 de 3 formatos",
+   lectura:'<h4>📖 Lectura: '+lectP3[3].t+'</h4><p>'+lectP3[3].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[3].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 4</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Crea en 2 formatos con creatividad excepcional.</td><td>Mensaje claro, edición pulida.</td><td>Incorpora retroalimentación.</td></tr><tr><td class="alt">Alto</td><td>Crea 2 formatos con calidad.</td><td>Buena edición y diseño.</td><td>Recibe retroalimentación.</td></tr><tr><td class="bas">Básico</td><td>Calidad básica o 1 formato.</td><td>Mensaje poco claro.</td><td>No incorpora feedback.</td></tr><tr><td class="baj">Bajo</td><td>No presenta formatos.</td><td>Contenido sin editar.</td><td>No recibe feedback.</td></tr></table></div>'},
+  {num:"Sem 5",title:"Representación de Ideas para Innovación",indicator:indP3.saber[2],activities:"Técnicas: bocetos, storyboards, mockups · Representación visual (Draw.io) · Pitch de 2 min grabado",
+   lectura:'<h4>📖 Lectura: '+lectP3[4].t+'</h4><p>'+lectP3[4].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[4].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 5</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Representación profesional, pitch impecable.</td><td>Idea se comunica sin explicación extra.</td><td>Domina la técnica elegida.</td></tr><tr><td class="alt">Alto</td><td>Representación clara, pitch estructurado.</td><td>Idea se entiende con apoyo del pitch.</td><td>Buena ejecución técnica.</td></tr><tr><td class="bas">Básico</td><td>Representación simple, pitch incompleto.</td><td>Idea requiere explicación adicional.</td><td>Ejecución técnica limitada.</td></tr><tr><td class="baj">Bajo</td><td>No representa, no presenta pitch.</td><td>Idea no se comunica.</td><td>No ejecuta.</td></tr></table></div>'},
+  {num:"Sem 6",title:"Análisis y Comparación de Alternativas",indicator:indP3.hacer[2],activities:"Matriz de decisión con criterios ponderados · Google Sheets con gráficos radar · Justificación argumentada",
+   lectura:'<h4>📖 Lectura: '+lectP3[5].t+'</h4><p>'+lectP3[5].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[5].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 6</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>5+ criterios ponderados, 3+ alternativas.</td><td>Gráficos radar profesionales.</td><td>Justificación con evidencia.</td></tr><tr><td class="alt">Alto</td><td>3-4 criterios, 3 alternativas.</td><td>Gráficos claros.</td><td>Justificación coherente.</td></tr><tr><td class="bas">Básico</td><td>2-3 criterios.</td><td>Tabla básica sin gráficos.</td><td>Justificación débil.</td></tr><tr><td class="baj">Bajo</td><td>No construye matriz.</td><td>No compara.</td><td>Sin justificación.</td></tr></table></div>'},
+  {num:"Sem 7",title:"Costo-Beneficio en Soluciones Tecnológicas",indicator:indP3.ser[2],activities:"Cálculo de TCO de 3 dispositivos · Soluciones low-cost (Arduino, RPi, software libre) · Propuesta para necesidad local",
+   lectura:'<h4>📖 Lectura: '+lectP3[6].t+'</h4><p>'+lectP3[6].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[6].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 7</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>TCO preciso, propuesta viable e innovadora.</td><td>Contextualizada para Colombia.</td><td>Interioriza valor del ahorro.</td></tr><tr><td class="alt">Alto</td><td>TCO correcto, propuesta coherente.</td><td>Contextualizada.</td><td>Valora costo-beneficio.</td></tr><tr><td class="bas">Básico</td><td>TCO incompleto, propuesta genérica.</td><td>Poco contextualizada.</td><td>Reconoce sin aplicar.</td></tr><tr><td class="baj">Bajo</td><td>No calcula TCO, no propone.</td><td>Sin contexto.</td><td>No valora.</td></tr></table></div>'},
+  {num:"Sem 8",title:"Avances Científicos representados con TIC",indicator:indP3.saber[3],activities:"Investigación Google Scholar · Representación digital (infografía/video/timeline) · Análisis pro/contra · Galería virtual",
+   lectura:'<h4>📖 Lectura: '+lectP3[7].t+'</h4><p>'+lectP3[7].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[7].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 8</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Análisis pro/contra con 3+ fuentes académicas.</td><td>Representación profesional e impactante.</td><td>Referencias APA impecables.</td></tr><tr><td class="alt">Alto</td><td>Análisis con 2+ fuentes.</td><td>Representación clara.</td><td>Referencias correctas.</td></tr><tr><td class="bas">Básico</td><td>Análisis superficial.</td><td>Representación simple.</td><td>Referencias incompletas.</td></tr><tr><td class="baj">Bajo</td><td>Sin análisis, sin fuentes.</td><td>No representa.</td><td>Sin referencias.</td></tr></table></div>'},
+  {num:"Sem 9",title:"Pros y Contras de la Tecnología — Visualización",indicator:indP3.saber[3],activities:"Investigación con 3+ fuentes · Visualización comparativa · Debate virtual en Padlet",
+   lectura:'<h4>📖 Lectura: '+lectP3[8].t+'</h4><p>'+lectP3[8].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[8].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 9</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Análisis equilibrado con fuentes académicas.</td><td>Visualización profesional.</td><td>Participa con argumentos sólidos.</td></tr><tr><td class="alt">Alto</td><td>Análisis balanceado con fuentes.</td><td>Visualización clara.</td><td>Participa con argumentos.</td></tr><tr><td class="bas">Básico</td><td>Análisis superficial o sesgado.</td><td>Visualización simple.</td><td>Participa mínimamente.</td></tr><tr><td class="baj">Bajo</td><td>Sin análisis, sin fuentes.</td><td>Sin visualización.</td><td>No participa.</td></tr></table></div>'},
+  {num:"Sem 10",title:"Debate — Uso Ético de Medios Tecnológicos",indicator:indP3.hacer[3],activities:"World Café: 4 estaciones rotativas · Roles: proponente, oponente, moderador, secretario · Acta digital",
+   lectura:'<h4>📖 Lectura: '+lectP3[9].t+'</h4><p>'+lectP3[9].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[9].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 10</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Argumentos con evidencia en 4 estaciones.</td><td>Acta detallada con conclusiones.</td><td>Modera, escucha y construye.</td></tr><tr><td class="alt">Alto</td><td>Argumentos en 3-4 estaciones.</td><td>Acta con conclusiones claras.</td><td>Participa en todos los roles.</td></tr><tr><td class="bas">Básico</td><td>Argumentos en 1-2 estaciones.</td><td>Acta básica.</td><td>Participa en algunos roles.</td></tr><tr><td class="baj">Bajo</td><td>Sin argumentos preparados.</td><td>No contribuye al acta.</td><td>No participa.</td></tr></table></div>'},
+  {num:"Sem 11",title:"Campaña — Buen Uso de TIC",indicator:indP3.ser[3],activities:"Diseño de campaña · Video 1 min + infografía + post · Simulación en el colegio · Medición de impacto",
+   lectura:'<h4>📖 Lectura: '+lectP3[10].t+'</h4><p>'+lectP3[10].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[10].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 11</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Campaña completa, creativa y medible.</td><td>3 formatos profesionales y consistentes.</td><td>Encuesta planificada con análisis.</td></tr><tr><td class="alt">Alto</td><td>Mensaje claro en 3 formatos.</td><td>Diseño cuidado y coherente.</td><td>Encuesta con resultados.</td></tr><tr><td class="bas">Básico</td><td>1-2 formatos, mensaje genérico.</td><td>Diseño básico.</td><td>Pocas respuestas.</td></tr><tr><td class="baj">Bajo</td><td>1 formato o ninguno.</td><td>Sin encuesta.</td><td>Sin resultados.</td></tr></table></div>'},
+  {num:"Sem 12",title:"Presentación de Proyectos — Feria",indicator:indP3.hacer[1],activities:"Presentación final profesional · Pitch 5 min + demo · Coevaluación · Premios: Innovador, Mejor Comunicado, Costo-Efectivo",
+   lectura:'<h4>📖 Lectura: '+lectP3[11].t+'</h4><p>'+lectP3[11].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[11].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 12</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Presentación profesional, pitch impecable.</td><td>Demo funcional, dominio técnico.</td><td>Coevaluación detallada de todos.</td></tr><tr><td class="alt">Alto</td><td>Presentación clara y estructurada.</td><td>Pitch completo, demo funcional.</td><td>Coevaluación de la mayoría.</td></tr><tr><td class="bas">Básico</td><td>Presentación básica.</td><td>Pitch incompleto.</td><td>Coevaluación de pocos.</td></tr><tr><td class="baj">Bajo</td><td>No presenta.</td><td>Sin demo.</td><td>No coevalúa.</td></tr></table></div>'},
+  {num:"Sem 13",title:"Cierre — Debate Final y Portafolio Digital",indicator:indP3.ser[3],activities:"Debate: '¿Está la tecnología al servicio de todos los colombianos?' · Portafolio Google Sites · Autoevaluación y reflexión",
+   lectura:'<h4>📖 Lectura: '+lectP3[12].t+'</h4><p>'+lectP3[12].c.map(c=>'<span class="cita">"'+c+'"</span>').join('<br>')+'</p><div class="ref"><b>Referencias:</b> '+lectP3[12].r+'</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica — Semana 13</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Portafolio profesional con reflexiones profundas.</td><td>Debate con argumentos de contexto colombiano.</td><td>Autoevaluación honesta con plan de mejora.</td></tr><tr><td class="alt">Alto</td><td>Portafolio completo y organizado.</td><td>Participa en el debate.</td><td>Autoevaluación sincera.</td></tr><tr><td class="bas">Básico</td><td>Portafolio con evidencias limitadas.</td><td>Participa mínimamente.</td><td>Autoevaluación superficial.</td></tr><tr><td class="baj">Bajo</td><td>No presenta portafolio.</td><td>No participa.</td><td>No se autoevalúa.</td></tr></table></div>'}
+];
+
+// ====== SEMANAS P2 ======
+const weeksP2 = [
+  {num:"Sem 1",title:"La Tecnología y Yo — Diagnóstico Inicial",indicator:indP2.saber[3],activities:"Línea de tiempo digital personal (Canva) · Foro virtual · Formulario diagnóstico Google Forms",
+   lectura:'<h4>📖 Lectura: Nuestra relación con la tecnología</h4><p>Prensky (2001) acuñó el término "nativos digitales" y afirmó que <span class="cita">"los estudiantes de hoy ya no son las personas para las que nuestro sistema educativo fue diseñado"</span>. Turkle (2011) advierte que <span class="cita">"esperamos más de la tecnología y menos el uno del otro"</span>. En Colombia, el MinTIC (2022) reporta que el 78% de jóvenes entre 15 y 24 años accede a internet diariamente.</p><div class="ref"><b>Referencias:</b> Prensky, M. (2001). Digital natives. On the Horizon. · Turkle, S. (2011). Alone together. Basic Books. · MinTIC Colombia. (2022). Plan Nacional TIC.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Relaciona críticamente su experiencia con tendencias globales.</td><td>Línea de tiempo con 8+ hitos, creativa y documentada.</td><td>Reflexiona con profundidad y propone cambios.</td></tr><tr><td class="alt">Alto</td><td>Identifica correctamente los hitos.</td><td>5-7 hitos bien presentados.</td><td>Reconoce su uso tecnológico.</td></tr><tr><td class="bas">Básico</td><td>Menciona dispositivos sin contexto.</td><td>3-4 hitos, presentación aceptable.</td><td>Reflexión superficial.</td></tr><tr><td class="baj">Bajo</td><td>No demuestra comprensión.</td><td>Línea incompleta o no entregada.</td><td>No reflexiona.</td></tr></table></div>'},
+  {num:"Sem 2",title:"Origen y Evolución de la Tecnología",indicator:indP2.saber[1],activities:"WebQuest de hitos tecnológicos · Infografía digital colaborativa · Galería virtual en Padlet",
+   lectura:'<h4>📖 Lectura: De la piedra al algoritmo</h4><p>Cabero (2007) define la tecnología como <span class="cita">"el conjunto de conocimientos y procedimientos que permiten diseñar y crear bienes que satisfacen necesidades humanas"</span>. Floridi (2014) propone que <span class="cita">"estamos dejando de ser organismos aislados para convertirnos en organismos informacionales interconectados"</span>. En Colombia, la internet comercial llegó en 1994.</p><div class="ref"><b>Referencias:</b> Cabero, J. (2007). Nuevas tecnologías. McGraw-Hill. · Floridi, L. (2014). The fourth revolution. Oxford.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Analiza conexiones entre hitos e implicaciones.</td><td>Infografía impactante con datos precisos.</td><td>Participa activamente con preguntas originales.</td></tr><tr><td class="alt">Alto</td><td>Identifica 7-10 hitos correctamente.</td><td>Infografía completa y estructurada.</td><td>Participa con aportes pertinentes.</td></tr><tr><td class="bas">Básico</td><td>Menciona 4-6 hitos.</td><td>Infografía básica.</td><td>Participa ocasionalmente.</td></tr><tr><td class="baj">Bajo</td><td>No identifica hitos.</td><td>Infografía incompleta.</td><td>No participa.</td></tr></table></div>'},
+  {num:"Sem 3",title:"Naturaleza del Conocimiento Tecnológico",indicator:indP2.saber[0],activities:"Mapa mental colaborativo (Miro) · Análisis de casos ciencia vs tecnología · Quiz Kahoot",
+   lectura:'<h4>📖 Lectura: Ciencia y tecnología</h4><p>Cobo (2016) explica: <span class="cita">"Mientras la ciencia produce conocimiento verificable, la tecnología produce soluciones funcionales"</span>. Morin (1999) añade que <span class="cita">"el conocimiento pertinente es aquel capaz de situar la información en su contexto global"</span>.</p><div class="ref"><b>Referencias:</b> Cobo, C. (2016). La innovación pendiente. Penguin. · Morin, E. (1999). Los siete saberes. UNESCO.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Diferencia con precisión y ejemplos propios.</td><td>Mapa con jerarquía y conexiones cruzadas.</td><td>Lidera análisis integrando perspectivas.</td></tr><tr><td class="alt">Alto</td><td>Diferencia correctamente.</td><td>Mapa organizado con conexiones lógicas.</td><td>Participa activamente.</td></tr><tr><td class="bas">Básico</td><td>Define sin diferenciar claramente.</td><td>Mapa con estructura básica.</td><td>Participa cuando se le solicita.</td></tr><tr><td class="baj">Bajo</td><td>Confunde ciencia y tecnología.</td><td>Mapa desorganizado.</td><td>No participa.</td></tr></table></div>'},
+  {num:"Sem 4",title:"Design Thinking — Ideación de Soluciones",indicator:indP2.saber[1],activities:"Taller Design Thinking (5 etapas) · Lluvia de ideas · Selección del problema para proyecto semestral",
+   lectura:'<h4>📖 Lectura: Diseñar es pensar</h4><p>Oppenheimer (2014) destaca que <span class="cita">"la innovación no depende del coeficiente intelectual sino de la capacidad de observar, empatizar y experimentar"</span>. Freire (1970) anticipaba: <span class="cita">"Nadie educa a nadie, los hombres se educan entre sí mediados por el mundo"</span>. Empresas colombianas como Rappi y Platzi usaron metodologías ágiles de diseño.</p><div class="ref"><b>Referencias:</b> Oppenheimer, A. (2014). ¡Crear o morir!. Debate. · Freire, P. (1970). Pedagogía del oprimido. Siglo XXI.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Aplica Design Thinking con comprensión profunda.</td><td>Problema definido con empatía, 10+ ideas.</td><td>Empatía genuina, colabora activamente.</td></tr><tr><td class="alt">Alto</td><td>Aplica correctamente las 5 etapas.</td><td>Problema bien definido, 7-10 ideas.</td><td>Colabora con el equipo.</td></tr><tr><td class="bas">Básico</td><td>Nombra etapas sin profundidad.</td><td>Problema vago, 3-6 ideas.</td><td>Participa pasivamente.</td></tr><tr><td class="baj">Bajo</td><td>No comprende Design Thinking.</td><td>No define problema.</td><td>No colabora.</td></tr></table></div>'},
+  {num:"Sem 5",title:"Bocetado y Planificación del Prototipo",indicator:indP2.saber[1],activities:"Boceto digital (Draw.io) · Requisitos funcionales y no funcionales · Diagrama de flujo",
+   lectura:'<h4>📖 Lectura: Del papel al píxel</h4><p>Siemens (2005) sostiene que <span class="cita">"el aprendizaje descansa en la diversidad de opiniones"</span>. Cabero (2007) recuerda que <span class="cita">"el diseño de materiales no es un proceso mecánico sino reflexivo y creativo"</span>.</p><div class="ref"><b>Referencias:</b> Siemens, G. (2005). Connectivism. IJIT. · Cabero, J. (2007). Nuevas tecnologías. McGraw-Hill.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Planifica integralmente.</td><td>Boceto profesional, 8+ requisitos.</td><td>Busca e incorpora feedback.</td></tr><tr><td class="alt">Alto</td><td>Planifica adecuadamente.</td><td>Boceto claro, 5-7 requisitos.</td><td>Acepta sugerencias.</td></tr><tr><td class="bas">Básico</td><td>Planifica incompleto.</td><td>Boceto básico, 3-4 requisitos.</td><td>Ajustes mínimos.</td></tr><tr><td class="baj">Bajo</td><td>No demuestra planificación.</td><td>Sin boceto ni requisitos.</td><td>No ajusta diseño.</td></tr></table></div>'},
+  {num:"Sem 6",title:"Antropometría y Ergonomía en el Diseño",indicator:indP2.saber[2],activities:"Medición antropométrica · Evaluación ergonómica de puestos · Rediseño del prototipo",
+   lectura:'<h4>📖 Lectura: Diseñar para el cuerpo humano</h4><p>Selwyn (2014) enfatiza que <span class="cita">"la tecnología no es neutral: cada diseño incorpora suposiciones sobre quién la usará"</span>. Cobo (2016) señala que <span class="cita">"la verdadera inclusión digital considera la diversidad humana"</span>. La NTC 3955 establece principios ergonómicos en Colombia.</p><div class="ref"><b>Referencias:</b> Selwyn, N. (2014). Digital technology. Routledge. · Cobo, C. (2016). La innovación pendiente. Penguin.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Aplica principios con precisión.</td><td>Mediciones exactas, 3+ puestos.</td><td>Propone mejoras inclusivas.</td></tr><tr><td class="alt">Alto</td><td>Aplica correctamente ergonomía.</td><td>Mediciones correctas, 2-3 puestos.</td><td>Considera comodidad del usuario.</td></tr><tr><td class="bas">Básico</td><td>Define con imprecisiones.</td><td>Mediciones básicas, 1 puesto.</td><td>Menciona sin aplicar.</td></tr><tr><td class="baj">Bajo</td><td>No comprende conceptos.</td><td>Mediciones incorrectas.</td><td>No considera ergonomía.</td></tr></table></div>'},
+  {num:"Sem 7",title:"Prototipado Digital — Manos a la Obra",indicator:indP2.hacer[1],activities:"Tutorial (Figma/Tinkercad/Canva) · Construcción V1 · Pruebas internas con feedback",
+   lectura:'<h4>📖 Lectura: Construir, probar, mejorar</h4><p>Oppenheimer (2014) relata: <span class="cita">"el fracaso es visto como un paso necesario: la clave es fallar rápido y barato para aprender pronto"</span>. UNESCO (2023) advierte que <span class="cita">"la tecnología en educación debe priorizar habilidades humanas sobre consumo de contenidos"</span>.</p><div class="ref"><b>Referencias:</b> Oppenheimer, A. (2014). ¡Crear o morir!. · UNESCO. (2023). GEM Report.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Sustenta decisiones con argumentos.</td><td>Prototipo funcional e innovador.</td><td>Colabora dando y recibiendo feedback.</td></tr><tr><td class="alt">Alto</td><td>Explica adecuadamente.</td><td>Prototipo funcional.</td><td>Prueba otros prototipos.</td></tr><tr><td class="bas">Básico</td><td>Justifica parcialmente.</td><td>Funcionalidad limitada.</td><td>Pruebas superficiales.</td></tr><tr><td class="baj">Bajo</td><td>No explica decisiones.</td><td>No funcional.</td><td>No participa en pruebas.</td></tr></table></div>'},
+  {num:"Sem 8",title:"Impacto de la Tecnología en los Jóvenes",indicator:indP2.saber[3],activities:"Investigación Google Scholar · Encuesta hábitos digitales · Debate virtual estructurado",
+   lectura:'<h4>📖 Lectura: ¿La tecnología nos hace más o menos?</h4><p>Carr (2010) advierte que <span class="cita">"internet nos está convirtiendo en lectores superficiales"</span>. UNESCO (2023) encontró que <span class="cita">"cuando se usa con propósito pedagógico, la tecnología puede ampliar el acceso al aprendizaje"</span>. En Colombia, el 92% de hogares urbanos tiene celular inteligente (DANE, 2023).</p><div class="ref"><b>Referencias:</b> Carr, N. (2010). The shallows. Norton. · UNESCO. (2023). GEM Report. · DANE. (2023). Encuesta Calidad de Vida.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Analiza con evidencia académica.</td><td>Encuesta bien diseñada, infografía con datos.</td><td>Debate con respeto y escucha activa.</td></tr><tr><td class="alt">Alto</td><td>Identifica impactos con ejemplos.</td><td>Encuesta aplicada, infografía clara.</td><td>Respeta opiniones diferentes.</td></tr><tr><td class="bas">Básico</td><td>Menciona impactos sin profundizar.</td><td>Pocas respuestas, infografía simple.</td><td>Participa mínimamente.</td></tr><tr><td class="baj">Bajo</td><td>No identifica impactos.</td><td>No realiza encuesta.</td><td>No participa.</td></tr></table></div>'},
+  {num:"Sem 9",title:"Ética Tecnológica — Privacidad y Datos",indicator:indP2.ser[3],activities:"Análisis de casos reales · Lectura de TyC de apps · Protocolo ético del prototipo",
+   lectura:'<h4>📖 Lectura: Tus datos hablan de ti</h4><p>Floridi (2014) sostiene que <span class="cita">"la privacidad no es solo un derecho individual, es un bien social"</span>. Selwyn (2014) señala que <span class="cita">"los usuarios rara vez comprenden cómo se utilizan sus datos"</span>. En Colombia, la Ley 1581 de 2012 protege el habeas data.</p><div class="ref"><b>Referencias:</b> Floridi, L. (2014). The fourth revolution. · Selwyn, N. (2014). Digital technology. · Ley 1581/2012.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Analiza con profundidad jurídica y ética.</td><td>Protocolo detallado con consentimiento.</td><td>Decisiones éticas autónomas.</td></tr><tr><td class="alt">Alto</td><td>Comprende riesgos con ejemplos.</td><td>Protocolo con elementos clave.</td><td>Reflexiona sobre su huella digital.</td></tr><tr><td class="bas">Básico</td><td>Identifica riesgos sin profundizar.</td><td>Protocolo básico genérico.</td><td>Conciencia limitada.</td></tr><tr><td class="baj">Bajo</td><td>No comprende privacidad.</td><td>No presenta protocolo.</td><td>Sin interés en proteger datos.</td></tr></table></div>'},
+  {num:"Sem 10",title:"Ciberseguridad — Protege tu Mundo Digital",indicator:indP2.hacer[3],activities:"Taller contraseñas + 2FA · Simulacro phishing · Guía de seguridad para la comunidad",
+   lectura:'<h4>📖 Lectura: El eslabón más débil eres tú</h4><p>Carr (2010) observa que <span class="cita">"cuanto más externalizamos nuestra memoria, más vulnerables nos volvemos"</span>. Bauman (2007) recuerda que <span class="cita">"en la modernidad líquida, la seguridad es un bien escaso que cada individuo debe construir"</span>. En Colombia, más de 60.000 denuncias por delitos informáticos en 2023.</p><div class="ref"><b>Referencias:</b> Carr, N. (2010). The shallows. · Bauman, Z. (2007). Los retos de la educación. Gedisa. · Fiscalía General. (2023).</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Protocolo integral de seguridad.</td><td>Guía profesional 10+ recomendaciones.</td><td>Promueve seguridad activamente.</td></tr><tr><td class="alt">Alto</td><td>Comprende amenazas comunes.</td><td>Guía con 7-10 recomendaciones.</td><td>Comparte consejos.</td></tr><tr><td class="bas">Básico</td><td>Nombra amenazas sin mecanismos.</td><td>4-6 recomendaciones genéricas.</td><td>Aplica solo al recordarle.</td></tr><tr><td class="baj">Bajo</td><td>No comprende amenazas.</td><td>No presenta guía.</td><td>No toma medidas.</td></tr></table></div>'},
+  {num:"Sem 11",title:"Residuos Tecnológicos y Sostenibilidad",indicator:indP2.hacer[2],activities:"Documental basura electrónica · Cálculo huella electrónica · Campaña digital de concientización",
+   lectura:'<h4>📖 Lectura: La cara oculta de tus dispositivos</h4><p>Colombia genera 150.000 toneladas de residuos electrónicos al año (solo 5% se recicla). Oppenheimer (2014) plantea: <span class="cita">"la innovación no puede medirse solo en ganancias"</span>. Morin (1999) advertía: <span class="cita">"necesitamos una conciencia ecológica que entienda que todo está interconectado"</span>.</p><div class="ref"><b>Referencias:</b> Oppenheimer, A. (2014). ¡Crear o morir!. · Morin, E. (1999). Los siete saberes. · MinAmbiente. (2022).</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Analiza ciclo de vida y economía circular.</td><td>Campaña impactante con llamado a la acción.</td><td>Agente de cambio comunitario.</td></tr><tr><td class="alt">Alto</td><td>Comprende problema e impactos.</td><td>Campaña clara y bien diseñada.</td><td>Preocupación genuina.</td></tr><tr><td class="bas">Básico</td><td>Menciona sin analizar.</td><td>Campaña simple, mensaje básico.</td><td>Reconoce sin involucrarse.</td></tr><tr><td class="baj">Bajo</td><td>No comprende la problemática.</td><td>No presenta campaña.</td><td>Sin interés en sostenibilidad.</td></tr></table></div>'},
+  {num:"Sem 12",title:"Feria Tecnológica — Presenta tu Prototipo",indicator:indP2.hacer[0],activities:"Preparación de pitch 5 min · Feria virtual + coevaluación · Premios: Innovador, Sostenible, Ético, Diseño",
+   lectura:'<h4>📖 Lectura: Comunicar es convencer</h4><p>Cobo (2016) afirma: <span class="cita">"la capacidad de comunicar ideas complejas de forma clara es tan valiosa como generarlas"</span>. Oppenheimer (2014) observa: <span class="cita">"las ideas más disruptivas suelen presentarse con simplicidad"</span>.</p><div class="ref"><b>Referencias:</b> Cobo, C. (2016). La innovación pendiente. · Oppenheimer, A. (2014). ¡Crear o morir!.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Sustenta con argumentos técnicos y éticos.</td><td>Pitch profesional, demo funcional.</td><td>Comunica con pasión e inspira.</td></tr><tr><td class="alt">Alto</td><td>Explica con claridad.</td><td>Pitch estructurado, demo funcional.</td><td>Presenta con seguridad.</td></tr><tr><td class="bas">Básico</td><td>Explica de forma limitada.</td><td>Pitch incompleto, demo con fallas.</td><td>Presenta con timidez.</td></tr><tr><td class="baj">Bajo</td><td>No puede explicar.</td><td>No presenta pitch ni demo.</td><td>No participa en feria.</td></tr></table></div>'},
+  {num:"Sem 13",title:"Cierre, Reflexión y Portafolio Digital",indicator:indP2.ser[2],activities:"Portafolio digital (Google Sites) · Autoevaluación y reflexión · Encuesta de cierre · Insignia digital",
+   lectura:'<h4>📖 Lectura: Aprender a aprender</h4><p>Freire (1970) sostenía: <span class="cita">"la educación no cambia el mundo, cambia a las personas que van a cambiar el mundo"</span>. Bauman (2007) reflexiona: <span class="cita">"en un mundo líquido, aprender, desaprender y reaprender es más importante que acumular conocimientos fijos"</span>.</p><div class="ref"><b>Referencias:</b> Freire, P. (1970). Pedagogía del oprimido. · Bauman, Z. (2007). Los retos de la educación.</div>',
+   rubrica:'<div class="rubrica"><h4>📊 Rúbrica</h4><table><tr><th>Nivel</th><th>SABER</th><th>HACER</th><th>SER</th></tr><tr><td class="sup">Superior</td><td>Conocimiento integral con proyección.</td><td>Portafolio profesional, reflexión profunda.</td><td>Autoevalúa con honestidad y madurez.</td></tr><tr><td class="alt">Alto</td><td>Integra aprendizajes principales.</td><td>Portafolio completo y organizado.</td><td>Se autoevalúa con sinceridad.</td></tr><tr><td class="bas">Básico</td><td>Menciona sin integrar.</td><td>Portafolio básico, evidencias limitadas.</td><td>Autoevaluación superficial.</td></tr><tr><td class="baj">Bajo</td><td>No demuestra aprendizaje.</td><td>No presenta portafolio.</td><td>No se autoevalúa.</td></tr></table></div>'}
+];
+
+// Poblar P2
+renderIndicadores(indP2, 'indicadores-p2');
+renderTimeline(weeksP2, 'timeline-p2');
+
+// Poblar P3
+renderIndicadores(indP3, 'indicadores-p3');
+renderTimeline(weeksP3, 'timeline-p3');
+
+// ====== SWITCH ENTRE PERIODOS ======
+function switchPeriod(period) {
+  document.querySelectorAll('.period-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('content-'+period).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { if(b.textContent.trim().toLowerCase().includes(period.replace('p',''))) b.classList.add('active'); });
+}
+
+// ====== MODAL ======
 function openModal(w) {
-  document.getElementById('modal-content').innerHTML = `
-    <button class="close" onclick="closeModal()">✕</button>
-    <h3>${w.num}: ${w.title}</h3>
-    <p style="color:var(--yellow);font-style:italic;margin-bottom:0.5rem;">📌 Indicador: ${w.indicator}</p>
-    <p style="color:var(--text2);margin-bottom:1rem;font-size:0.9rem;">🖥️ ${w.activities}</p>
-    ${w.lectura}
-    ${rubricas[w.rubrica]}
-  `;
+  document.getElementById('modal-content').innerHTML = '<button class="close" onclick="closeModal()">✕</button><h3>'+w.num+': '+w.title+'</h3><p style="color:var(--yellow);font-style:italic;margin-bottom:0.4rem;">📌 '+w.indicator+'</p><p style="color:var(--text2);margin-bottom:0.8rem;font-size:0.85rem;">🖥️ '+w.activities+'</p>'+w.lectura+w.rubrica;
   document.getElementById('modal').classList.add('active');
 }
-function closeModal() { document.getElementById('modal').classList.remove('active'); }
-document.getElementById('modal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
-document.addEventListener('keydown', function(e) { if(e.key==='Escape') closeModal(); });
+function closeModal(){document.getElementById('modal').classList.remove('active');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
-// Particles
-(function(){
-  const c = document.getElementById('particles'), ctx = c.getContext('2d');
-  let w, h, particles = [];
-  function resize() { w=c.width=window.innerWidth; h=c.height=window.innerHeight; }
-  resize(); window.addEventListener('resize',resize);
-  for(let i=0;i<40;i++) particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,r:Math.random()*2+0.5,alpha:Math.random()*0.4+0.08});
-  (function draw(){
-    ctx.clearRect(0,0,w,h);
-    particles.forEach(p=>{
-      p.x+=p.vx;p.y+=p.vy; if(p.x<0)p.x=w; if(p.x>w)p.x=0; if(p.y<0)p.y=h; if(p.y>h)p.y=0;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(0,240,255,${p.alpha})`; ctx.fill();
-      particles.forEach(p2=>{const dx=p.x-p2.x,dy=p.y-p2.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<100){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=`rgba(189,0,255,${0.06*(1-dist/100)})`;ctx.stroke();}});
-    });
-    requestAnimationFrame(draw);
-  })();
-})();
+// ====== PARTÍCULAS ======
+(function(){const c=document.getElementById('particles'),ctx=c.getContext('2d');let w,h,p=[];function r(){w=c.width=innerWidth;h=c.height=innerHeight;}r();addEventListener('resize',r);for(let i=0;i<35;i++)p.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.35,vy:(Math.random()-0.5)*0.35,rad:Math.random()*2+0.5,a:Math.random()*0.35+0.06});(function d(){ctx.clearRect(0,0,w,h);p.forEach(pt=>{pt.x+=pt.vx;pt.y+=pt.vy;if(pt.x<0)pt.x=w;if(pt.x>w)pt.x=0;if(pt.y<0)pt.y=h;if(pt.y>h)pt.y=0;ctx.beginPath();ctx.arc(pt.x,pt.y,pt.rad,0,Math.PI*2);ctx.fillStyle='rgba(0,240,255,'+pt.a+')';ctx.fill();p.forEach(p2=>{const dx=pt.x-p2.x,dy=pt.y-p2.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<90){ctx.beginPath();ctx.moveTo(pt.x,pt.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle='rgba(189,0,255,'+(0.05*(1-dist/90))+')';ctx.stroke();}});});requestAnimationFrame(d);})();})();
 
-const observer = new IntersectionObserver((entries) => { entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}}); }, {threshold:0.1});
-document.querySelectorAll('.comp-card,.week-card,.ind-group,.link-btn').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.6s ease,transform 0.6s ease';observer.observe(el);});
+// Animaciones al scroll
+const obs=new IntersectionObserver((e)=>{e.forEach(en=>{if(en.isIntersecting){en.target.style.opacity='1';en.target.style.transform='translateY(0)';}});},{threshold:0.08});
+document.querySelectorAll('.comp-card,.week-card,.ind-group,.link-btn').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';obs.observe(el);});
 </script>
 </body>
 </html>

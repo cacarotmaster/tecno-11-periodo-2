@@ -106,24 +106,24 @@
       <li><button class="tab-btn" onclick="switchPeriod('p3')">Período 3</button></li>
     </ul>
     <ul class="links">
-      <li><a href="#hero">Inicio</a></li>
-      <li><a href="#indicadores">Indicadores</a></li>
-      <li><a href="#semanas">Semanas</a></li>
-      <li><a href="#herramientas">Herramientas</a></li>
+      <li><a href="#" onclick="navTo('hero');return false;">Inicio</a></li>
+      <li><a href="#" onclick="navTo('indicadores');return false;">Indicadores</a></li>
+      <li><a href="#" onclick="navTo('semanas');return false;">Semanas</a></li>
+    </ul>
     </ul>
   </div>
 </nav>
 
 <!-- ===== PERÍODO 2 ===== -->
 <div class="period-content active" id="content-p2">
-<header class="hero" id="hero">
+<header class="hero" id="hero-p2">
   <div class="badge">📡 PERÍODO 2 · 2026</div>
   <h2>Diseña el futuro con<br><span class="gradient">ética, ergonomía y sostenibilidad</span></h2>
   <div class="question">💡 "¿Cómo podemos diseñar soluciones tecnológicas éticas, ergonómicas y sostenibles que respondan a problemas reales de nuestra comunidad?"</div>
   <div class="meta"><span>📅 <b>13 Semanas</b></span><span>🕐 <b>2h / semana</b></span><span>💻 <b>Sala de Sistemas</b></span><span>🧑‍💻 <b>Individual</b></span><span>🎓 <b>Grado 11°</b></span></div>
 </header>
-<section id="indicadores"><div id="indicadores-p2"></div></section>
-<section id="semanas"><div class="timeline" id="timeline-p2"></div></section>
+<section id="indicadores-p2-s"><div id="indicadores-p2"></div></section>
+<section id="semanas-p2-s"><div class="timeline" id="timeline-p2"></div></section>
 </div>
 
 <!-- ===== PERÍODO 3 ===== -->
@@ -326,11 +326,21 @@ renderIndicadores(indP3, 'indicadores-p3');
 renderTimeline(weeksP3, 'timeline-p3');
 
 // ====== SWITCH ENTRE PERIODOS ======
+let activePeriod = 'p2';
 function switchPeriod(period) {
+  activePeriod = period;
   document.querySelectorAll('.period-content').forEach(el => el.classList.remove('active'));
   document.getElementById('content-'+period).classList.add('active');
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => { if(b.textContent.trim().toLowerCase().includes(period.replace('p',''))) b.classList.add('active'); });
+  // Scroll al hero del período
+  const hero = document.getElementById('hero-'+period);
+  if(hero) hero.scrollIntoView({behavior:'smooth',block:'start'});
+}
+// Navegación dentro del período activo
+function navTo(section) {
+  const el = document.getElementById(section+'-'+activePeriod+'-s') || document.getElementById(section+'-'+activePeriod);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ====== MODAL ======
